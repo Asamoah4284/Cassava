@@ -1,0 +1,33 @@
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import PublicLayout from '../layouts/PublicLayout'
+import About from '../pages/public/About'
+import ConsultancyOverview from '../pages/public/ConsultancyOverview'
+import ContactSupport from '../pages/public/ContactSupport'
+import Home from '../pages/public/Home'
+import KnowledgeHub from '../pages/public/KnowledgeHub'
+import MarketplacePreview from '../pages/public/MarketplacePreview'
+import ResearchHighlights from '../pages/public/ResearchHighlights'
+
+/**
+ * App routing configuration for public pages.
+ */
+const AppRouter = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<PublicLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/knowledge" element={<KnowledgeHub />} />
+          <Route path="/research" element={<ResearchHighlights />} />
+          <Route path="/marketplace" element={<MarketplacePreview />} />
+          <Route path="/consultancy" element={<ConsultancyOverview />} />
+          <Route path="/contact" element={<ContactSupport />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default AppRouter
