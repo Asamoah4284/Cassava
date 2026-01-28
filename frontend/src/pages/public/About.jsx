@@ -1,48 +1,5 @@
 import { Link } from 'react-router-dom'
 
-const teamMembers = [
-  {
-    name: 'Dr. Kwame Asante',
-    role: 'Lead Agronomist',
-    image: 'https://ui-avatars.com/api/?name=Kwame+Asante&background=random',
-    social: {
-      twitter: '#',
-      facebook: '#',
-      linkedin: '#',
-    },
-  },
-  {
-    name: 'Ama Mensah',
-    role: 'Research Director',
-    image: 'https://ui-avatars.com/api/?name=Ama+Mensah&background=random',
-    social: {
-      twitter: '#',
-      facebook: '#',
-      linkedin: '#',
-    },
-  },
-  {
-    name: 'Kofi Osei',
-    role: 'Market Specialist',
-    image: 'https://ui-avatars.com/api/?name=Kofi+Osei&background=random',
-    social: {
-      twitter: '#',
-      facebook: '#',
-      linkedin: '#',
-    },
-  },
-  {
-    name: 'Akosua Adjei',
-    role: 'Community Manager',
-    image: 'https://ui-avatars.com/api/?name=Akosua+Adjei&background=random',
-    social: {
-      twitter: '#',
-      facebook: '#',
-      linkedin: '#',
-    },
-  },
-]
-
 const testimonials = [
   {
     name: 'Yaw Boateng',
@@ -72,12 +29,12 @@ const About = () => {
   return (
     <div className="flex flex-col">
       {/* Hero Section - About Us Banner */}
-      <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw]">
+      <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] -mt-12">
         <div
           className="relative flex min-h-[400px] items-center justify-center bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&q=80')",
+              "url('https://i.pinimg.com/1200x/50/b3/72/50b372699e5de05a37837674c9fd74f4.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/50" />
@@ -107,7 +64,7 @@ const About = () => {
                   className="h-full w-full bg-cover bg-center"
                   style={{
                     backgroundImage:
-                      "url('https://i.pinimg.com/1200x/8b/71/03/8b7103b8032f00d63a3bb276e2cb0ec7.jpg')",
+                      "url('https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg')",
                   }}
                 />
               </div>
@@ -182,7 +139,7 @@ const About = () => {
           className="relative flex min-h-[500px] items-center justify-center bg-cover bg-center bg-fixed"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&q=80')",
+              "url('https://i.pinimg.com/736x/24/00/c7/2400c79e665ecb95eb0531447dad3365.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/60" />
@@ -208,97 +165,6 @@ const About = () => {
                 <path d="M8 5v14l11-7z" />
               </svg>
             </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Meet the Team Section */}
-      <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-white py-16 md:py-24">
-        <div className="mx-auto w-full max-w-7xl px-6">
-          <div className="mb-16 text-center">
-            <div className="mb-3 flex justify-center">
-              <svg
-                className="h-6 w-6 text-slate-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-                />
-              </svg>
-            </div>
-            <p className="mb-2 text-sm font-normal text-slate-500">
-              Professional People
-            </p>
-            <h2 className="text-3xl font-medium text-slate-900 md:text-4xl">
-              Meet the Team
-            </h2>
-          </div>
-
-          <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-            {teamMembers.map((member, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center text-center"
-              >
-                <div className="mb-5 aspect-square w-full max-w-[200px] overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <h3 className="mb-2 text-lg font-medium text-slate-900">
-                  {member.name}
-                </h3>
-                <div className="mt-2 flex gap-3">
-                  <a
-                    href={member.social.twitter}
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-600 transition hover:border-slate-300 hover:bg-slate-100"
-                    aria-label="Twitter"
-                  >
-                    <svg
-                      className="h-3.5 w-3.5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
-                    </svg>
-                  </a>
-                  <a
-                    href={member.social.facebook}
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-600 transition hover:border-slate-300 hover:bg-slate-100"
-                    aria-label="Facebook"
-                  >
-                    <svg
-                      className="h-3.5 w-3.5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-                    </svg>
-                  </a>
-                  <a
-                    href={member.social.linkedin}
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-600 transition hover:border-slate-300 hover:bg-slate-100"
-                    aria-label="LinkedIn"
-                  >
-                    <svg
-                      className="h-3.5 w-3.5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
-                      <circle cx="4" cy="4" r="2" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>

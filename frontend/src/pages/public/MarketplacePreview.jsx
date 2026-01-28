@@ -11,7 +11,7 @@ const cassavaProducts = [
     category: 'Produce',
     price: '₵15.00',
     unit: 'per kg',
-    image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400',
+    image: 'https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg',
     description: 'Freshly harvested cassava roots, high quality and ready for processing',
     farmer: 'Green Fields Farm',
     location: 'Kumasi, Ghana',
@@ -24,7 +24,7 @@ const cassavaProducts = [
     category: 'Processed',
     price: '₵45.00',
     unit: 'per 25kg bag',
-    image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400',
+    image: 'https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg',
     description: 'Premium quality cassava starch, perfect for industrial and food processing',
     farmer: 'AgriTech Processors',
     location: 'Accra, Ghana',
@@ -37,7 +37,7 @@ const cassavaProducts = [
     category: 'Processed',
     price: '₵25.00',
     unit: 'per 5kg bag',
-    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400',
+    image: 'https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg',
     description: 'Traditional gari, sun-dried and roasted to perfection',
     farmer: 'Traditional Foods Co.',
     location: 'Tamale, Ghana',
@@ -50,7 +50,7 @@ const cassavaProducts = [
     category: 'Processed',
     price: '₵35.00',
     unit: 'per 10kg bag',
-    image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400',
+    image: 'https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg',
     description: 'Fine cassava flour, gluten-free and ideal for baking',
     farmer: 'Healthy Grains Ltd',
     location: 'Cape Coast, Ghana',
@@ -63,7 +63,7 @@ const cassavaProducts = [
     category: 'Processed',
     price: '₵20.00',
     unit: 'per 2kg pack',
-    image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400',
+    image: 'https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg',
     description: 'Crispy cassava chips, naturally dried and packaged',
     farmer: 'Snack Masters',
     location: 'Koforidua, Ghana',
@@ -76,7 +76,7 @@ const cassavaProducts = [
     category: 'Inputs',
     price: '₵5.00',
     unit: 'per stem',
-    image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400',
+    image: 'https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg',
     description: 'High-yield cassava planting stems, disease-free and certified',
     farmer: 'Seed Bank Ghana',
     location: 'Sunyani, Ghana',
@@ -89,7 +89,7 @@ const cassavaProducts = [
     category: 'Processed',
     price: '₵30.00',
     unit: 'per 5kg bag',
-    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400',
+    image: 'https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg',
     description: 'Instant fufu powder made from premium cassava',
     farmer: 'Quick Meals Inc.',
     location: 'Takoradi, Ghana',
@@ -102,7 +102,7 @@ const cassavaProducts = [
     category: 'Produce',
     price: '₵18.00',
     unit: 'per kg',
-    image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400',
+    image: 'https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg',
     description: 'Certified organic cassava roots, grown without chemicals',
     farmer: 'EcoFarm Organic',
     location: 'Ho, Ghana',
@@ -120,8 +120,14 @@ const ProductCard = ({ product }) => {
       to={`/marketplace/product/${product.id}`}
       className="block transition-opacity hover:opacity-80"
     >
-      {/* Product Image Placeholder */}
-      <div className="aspect-square w-full bg-slate-100" />
+      {/* Product Image */}
+      <div className="aspect-square w-full overflow-hidden bg-slate-100">
+        <img
+          src={product.image}
+          alt={product.name}
+          className="h-full w-full object-cover"
+        />
+      </div>
 
       {/* Product Info */}
       <div className="mt-3">

@@ -515,11 +515,10 @@ const Home = () => {
 
       <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] min-h-[600px] pt-16 pb-32 overflow-hidden">
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-slate-100"
+          className="absolute inset-0 z-0 hidden bg-cover bg-center bg-no-repeat bg-slate-100 md:block"
           style={{
             backgroundImage:
               "url('https://i.pinimg.com/1200x/d7/ef/6a/d7ef6a65807ba895995b37db92c16812.jpg')",
-            backgroundSize: 'cover',
             backgroundPosition: 'center center',
             minHeight: '100%',
             width: '100%',
