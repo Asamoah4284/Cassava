@@ -43,7 +43,7 @@ const PublicLayout = () => {
     <div className={`min-h-screen ${shouldHaveWhiteBg ? 'bg-slate-50' : ''}`}>
       <SiteHeader links={navLinks} variant={isHome ? 'overlay' : 'solid'} />
       <main
-        className={`mx-auto flex w-full max-w-6xl flex-col gap-16 px-6 ${
+        className={`mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 md:px-6 ${
           isHome ? 'py-0' : 'py-12'
         }`}
       >

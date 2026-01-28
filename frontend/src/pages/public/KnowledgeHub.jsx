@@ -306,7 +306,7 @@ const categories = [
             {/* Featured Image */}
             <div className="relative h-[400px] w-full overflow-hidden rounded-lg">
               <img
-                src="https://i.pinimg.com/1200x/d7/ef/6a/d7ef6a65807ba895995b37db92c16812.jpg"
+                src="https://i.pinimg.com/1200x/83/9f/8d/839f8d935bd6d7ef6f9895ece6b7faf3.jpg"
                 alt="Cassava farmers examining cassava plants in field"
                 className="h-full w-full object-cover"
               />

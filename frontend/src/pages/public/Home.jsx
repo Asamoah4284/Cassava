@@ -1,54 +1,68 @@
+import { useState, useEffect } from 'react'
 import PrimaryButton from '../../components/cyphill/PrimaryButton'
 
+const heroBackgrounds = [
+  'https://i.pinimg.com/1200x/8b/71/03/8b7103b8032f00d63a3bb276e2cb0ec7.jpg',
+  'https://i.pinimg.com/1200x/d7/ef/6a/d7ef6a65807ba895995b37db92c16812.jpg',
+  'https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg',
+  'https://i.pinimg.com/1200x/50/b3/72/50b372699e5de05a37837674c9fd74f4.jpg',
+]
+
 const Home = () => {
+  const [currentBackgroundIndex, setCurrentBackgroundIndex] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [nextBackgroundIndex, setNextBackgroundIndex] = useState(0)
+
+  const nextBackground = () => {
+    if (isTransitioning) return
+    const next = (currentBackgroundIndex + 1) % heroBackgrounds.length
+    setNextBackgroundIndex(next)
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setCurrentBackgroundIndex(next)
+      setIsTransitioning(false)
+    }, 600)
+  }
+
+  const previousBackground = () => {
+    if (isTransitioning) return
+    const prev =
+      (currentBackgroundIndex - 1 + heroBackgrounds.length) %
+      heroBackgrounds.length
+    setNextBackgroundIndex(prev)
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setCurrentBackgroundIndex(prev)
+      setIsTransitioning(false)
+    }, 600)
+  }
+
   return (
     <div className="flex flex-col gap-20 pb-24">
       <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw]">
         <div className="relative min-h-screen overflow-hidden">
+          {/* Base background layer */}
           <div
-            className="absolute inset-0 bg-cover bg-center"
+            className={`absolute inset-0 bg-cover bg-center transition-all duration-500 ease-in-out ${
+              isTransitioning ? 'scale-110 opacity-0 blur-sm' : 'scale-100 opacity-100 blur-0'
+            }`}
             style={{
-              backgroundImage:
-                "url('https://i.pinimg.com/1200x/8b/71/03/8b7103b8032f00d63a3bb276e2cb0ec7.jpg')",
+              backgroundImage: `url('${heroBackgrounds[currentBackgroundIndex]}')`,
             }}
           />
+          {/* Transitioning background layer with dramatic crossfade, scale, and blur */}
+          <div
+            className={`absolute inset-0 bg-cover bg-center transition-all duration-500 ease-out ${
+              isTransitioning
+                ? 'opacity-100 scale-100 blur-0'
+                : 'opacity-0 scale-110 blur-sm'
+            }`}
+            style={{
+              backgroundImage: `url('${heroBackgrounds[nextBackgroundIndex]}')`,
+            }}
+          />
+          {/* Overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/70" />
-          <button
-            type="button"
-            aria-label="Previous slide"
-            className="absolute left-6 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/40 text-white/80 transition hover:border-white/60 hover:text-white md:flex"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            aria-label="Next slide"
-            className="absolute right-6 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/40 text-white/80 transition hover:border-white/60 hover:text-white md:flex"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </button>
           <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 pb-24 pt-36 text-center text-white">
             <div className="flex flex-col items-center gap-3">
               <span className="flex h-8 w-8 items-center justify-center rounded-full border border-amber-300/40 bg-black/30">
@@ -89,7 +103,87 @@ const Home = () => {
                 Contact Us
               </PrimaryButton>
             </div>
+            {/* Mobile chevrons below buttons */}
+            <div className="mt-8 flex items-center justify-center gap-4 md:hidden">
+              <button
+                type="button"
+                onClick={previousBackground}
+                aria-label="Previous slide"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/40 text-white/80 transition hover:border-white/60 hover:text-white"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={nextBackground}
+                aria-label="Next slide"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/40 text-white/80 transition hover:border-white/60 hover:text-white"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
           </div>
+          {/* Desktop chevrons on sides */}
+          <button
+            type="button"
+            onClick={previousBackground}
+            aria-label="Previous slide"
+            className="absolute left-6 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/40 text-white/80 transition hover:border-white/60 hover:text-white md:flex"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onClick={nextBackground}
+            aria-label="Next slide"
+            className="absolute right-6 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-black/40 text-white/80 transition hover:border-white/60 hover:text-white md:flex"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
         </div>
       </section>
 
@@ -235,9 +329,9 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-slate-950 py-32">
+      <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-slate-950 py-16 md:py-24">
         <div className="mx-auto max-w-4xl px-6">
-          <div className="flex flex-col gap-16">
+          <div className="flex flex-col gap-8 md:gap-12">
             <div className="flex flex-col gap-3">
               <h2 className="text-4xl font-semibold tracking-tight text-slate-100 md:text-5xl">
                 Why the Cassava Value Chain Needs This Platform
@@ -247,8 +341,8 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="flex flex-col gap-12">
-              <div className="flex flex-col gap-2 border-b border-slate-800 pb-8">
+            <div className="flex flex-col gap-6 md:gap-8">
+              <div className="flex flex-col gap-2 border-b border-slate-800 pb-6">
                 <p className="text-lg font-semibold text-slate-100">
                   Knowledge is scattered
                 </p>
@@ -257,7 +351,7 @@ const Home = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col gap-2 border-b border-slate-800 pb-8">
+              <div className="flex flex-col gap-2 border-b border-slate-800 pb-6">
                 <p className="text-lg font-semibold text-slate-100">
                   Expert support is out of reach
                 </p>
@@ -266,7 +360,7 @@ const Home = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col gap-2 border-b border-slate-800 pb-8">
+              <div className="flex flex-col gap-2 border-b border-slate-800 pb-6">
                 <p className="text-lg font-semibold text-slate-100">
                   Research stays in labs
                 </p>
@@ -275,7 +369,7 @@ const Home = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col gap-2 border-b border-slate-800 pb-8">
+              <div className="flex flex-col gap-2 border-b border-slate-800 pb-6">
                 <p className="text-lg font-semibold text-slate-100">
                   Markets are fragmented
                 </p>
@@ -284,7 +378,7 @@ const Home = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col gap-2 border-b border-slate-800 pb-8">
+              <div className="flex flex-col gap-2 border-b border-slate-800 pb-6">
                 <p className="text-lg font-semibold text-slate-100">
                   Inputs are unverified
                 </p>
@@ -293,7 +387,7 @@ const Home = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col gap-2 pb-4">
+              <div className="flex flex-col gap-2 pb-2">
                 <p className="text-lg font-semibold text-slate-100">
                   Data goes to waste
                 </p>
@@ -303,7 +397,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="pt-8">
+            <div className="pt-4 md:pt-6">
               <p className="text-lg font-medium leading-relaxed text-slate-200">
                 We fixed this by bringing everything into one intelligent digital system.
               </p>
@@ -312,7 +406,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-white py-32">
+      <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-white pt-16 pb-24 md:pt-32 md:pb-32 -mt-px mb-px">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex flex-col gap-12">
             {/* Header */}
@@ -513,9 +607,9 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] min-h-[600px] pt-16 pb-32 overflow-hidden">
+      <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] min-h-[600px] bg-slate-100 pt-16 pb-32 overflow-hidden">
         <div
-          className="absolute inset-0 z-0 hidden bg-cover bg-center bg-no-repeat bg-slate-100 md:block"
+          className="absolute inset-0 z-0 hidden bg-cover bg-center bg-no-repeat md:block"
           style={{
             backgroundImage:
               "url('https://i.pinimg.com/1200x/d7/ef/6a/d7ef6a65807ba895995b37db92c16812.jpg')",

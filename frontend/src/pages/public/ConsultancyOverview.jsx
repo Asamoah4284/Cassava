@@ -127,7 +127,7 @@ This request was submitted from the Cassava Digital Consultancy page.
       </div>
 
       {/* Consultation Booking Form */}
-      <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-8 shadow-sm">
+      <div className="mt-8 bg-slate-50 p-3 md:p-6">
         <div className="mb-6">
           <h2 className="mb-2 text-2xl font-bold text-slate-900">
             Book a Consultation

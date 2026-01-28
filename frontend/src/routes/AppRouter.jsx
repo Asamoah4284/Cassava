@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import ScrollToTop from '../components/ScrollToTop'
 import PublicLayout from '../layouts/PublicLayout'
 import About from '../pages/public/About'
 import ConsultancyOverview from '../pages/public/ConsultancyOverview'
@@ -14,6 +15,7 @@ import ResearchHighlights from '../pages/public/ResearchHighlights'
 const AppRouter = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<PublicLayout />}>
           <Route index element={<Home />} />
