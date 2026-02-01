@@ -42,8 +42,8 @@ const About = () => {
             <h1 className="mb-4 font-serif text-5xl font-bold text-white md:text-6xl lg:text-7xl">
               About Us
             </h1>
-            <div className="flex items-center justify-center gap-2 text-sm text-yellow-400">
-              <Link to="/" className="hover:text-yellow-300">
+            <div className="flex items-center justify-center gap-2 text-sm text-green-400">
+              <Link to="/" className="hover:text-green-300">
                 Home
               </Link>
               <span>/</span>
@@ -81,7 +81,7 @@ const About = () => {
 
             {/* Right Column - Content */}
             <div className="flex flex-col justify-center">
-              <span className="mb-4 text-sm font-semibold uppercase tracking-wider text-yellow-500">
+              <span className="mb-4 text-sm font-semibold uppercase tracking-wider text-green-500">
                 OUR MISSION
               </span>
               <h2 className="mb-6 font-serif text-4xl font-bold text-slate-900 md:text-5xl">
@@ -104,25 +104,25 @@ const About = () => {
               {/* Bullet Points */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex items-start gap-3">
-                  <div className="mt-1 h-2 w-2 rounded-full bg-yellow-500" />
+                  <div className="mt-1 h-2 w-2 rounded-full bg-green-500" />
                   <span className="font-serif text-sm text-slate-700">
                     Fresh organic food
                   </span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="mt-1 h-2 w-2 rounded-full bg-yellow-500" />
+                  <div className="mt-1 h-2 w-2 rounded-full bg-green-500" />
                   <span className="font-serif text-sm text-slate-700">
                     Live healthy
                   </span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="mt-1 h-2 w-2 rounded-full bg-yellow-500" />
+                  <div className="mt-1 h-2 w-2 rounded-full bg-green-500" />
                   <span className="font-serif text-sm text-slate-700">
                     Expert guidance
                   </span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="mt-1 h-2 w-2 rounded-full bg-yellow-500" />
+                  <div className="mt-1 h-2 w-2 rounded-full bg-green-500" />
                   <span className="font-serif text-sm text-slate-700">
                     Market access
                   </span>
@@ -145,16 +145,16 @@ const About = () => {
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 flex flex-col items-center gap-6">
             <div className="flex gap-2">
-              <div className="h-1 w-12 bg-yellow-400" />
-              <div className="h-1 w-8 bg-yellow-400" />
-              <div className="h-1 w-12 bg-yellow-400" />
+              <div className="h-1 w-12 bg-green-400" />
+              <div className="h-1 w-8 bg-green-400" />
+              <div className="h-1 w-12 bg-green-400" />
             </div>
             <h2 className="text-center font-serif text-4xl font-bold text-white md:text-5xl lg:text-6xl">
               Get Always Fresh Organic Food
             </h2>
             <button
               type="button"
-              className="mt-4 flex h-20 w-20 items-center justify-center rounded-full bg-yellow-500 transition hover:bg-yellow-600"
+              className="mt-4 flex h-20 w-20 items-center justify-center rounded-full bg-green-500 transition hover:bg-green-600"
               aria-label="Play video"
             >
               <svg
@@ -173,7 +173,7 @@ const About = () => {
       <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-white py-16 md:py-24">
         <div className="mx-auto w-full max-w-7xl px-6">
           <div className="mb-12 text-center">
-            <span className="mb-4 block text-sm font-semibold uppercase tracking-wider text-yellow-500">
+            <span className="mb-4 block text-sm font-semibold uppercase tracking-wider text-green-500">
               OUR TESTIMONIALS
             </span>
             <h2 className="font-serif text-4xl font-bold text-slate-900 md:text-5xl">
@@ -196,7 +196,7 @@ const About = () => {
                     />
                   </div>
                   <div>
-                    <h4 className="font-serif font-semibold text-yellow-600">
+                    <h4 className="font-serif font-semibold text-green-600">
                       {testimonial.name}
                     </h4>
                     <p className="text-sm text-slate-600">{testimonial.role}</p>

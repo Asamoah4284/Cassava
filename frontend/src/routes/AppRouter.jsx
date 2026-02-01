@@ -8,6 +8,7 @@ import Home from '../pages/public/Home'
 import KnowledgeHub from '../pages/public/KnowledgeHub'
 import MarketplacePreview from '../pages/public/MarketplacePreview'
 import ResearchHighlights from '../pages/public/ResearchHighlights'
+import Varieties from '../pages/public/Varieties'
 
 /**
  * App routing configuration for public pages.
@@ -21,6 +22,7 @@ const AppRouter = () => {
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/knowledge" element={<KnowledgeHub />} />
+          <Route path="/varieties" element={<Varieties />} />
           <Route path="/research" element={<ResearchHighlights />} />
           <Route path="/marketplace" element={<MarketplacePreview />} />
           <Route path="/consultancy" element={<ConsultancyOverview />} />

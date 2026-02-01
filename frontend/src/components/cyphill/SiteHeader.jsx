@@ -17,15 +17,15 @@ const SiteHeader = memo(function SiteHeader({ links, variant = 'solid' }) {
     ? 'sticky left-0 top-0 z-20 w-full border-y border-white/15 bg-[#10111F] backdrop-blur'
     : 'sticky top-0 z-20 w-full bg-[#10111F]'
 
-  const brandClasses = 'text-yellow-400'
+  const brandClasses = 'text-green-400'
 
   const subtitleClasses = 'text-gray-300'
 
   const navClasses = 'text-gray-300'
 
-  const navActive = 'text-yellow-400'
+  const navActive = 'text-green-400'
 
-  const navHover = 'hover:text-yellow-300'
+  const navHover = 'hover:text-green-300'
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -38,7 +38,7 @@ const SiteHeader = memo(function SiteHeader({ links, variant = 'solid' }) {
   return (
     <header className={headerClasses}>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
-        <div className="flex flex-col">
+        <Link to="/" className="flex flex-col transition hover:opacity-90">
           <span
             className={`text-sm font-semibold uppercase tracking-[0.2em] ${brandClasses}`}
           >
@@ -47,7 +47,7 @@ const SiteHeader = memo(function SiteHeader({ links, variant = 'solid' }) {
           <span className={`text-xs ${subtitleClasses}`}>
             Knowledge, consultancy, and market platform
           </span>
-        </div>
+        </Link>
         <nav
           className={`hidden items-center gap-5 text-sm font-medium md:flex ${navClasses}`}
         >

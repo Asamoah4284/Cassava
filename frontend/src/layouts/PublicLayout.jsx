@@ -3,17 +3,17 @@ import SiteFooter from '../components/cyphill/SiteFooter'
 import SiteHeader from '../components/cyphill/SiteHeader'
 
 const navLinks = [
-  { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
   { label: 'Cassava News', to: '/knowledge' },
+  { label: 'Varieties', to: '/varieties' },
   { label: 'Research', to: '/research' },
-  { label: 'Marketplace', to: '/marketplace' },
   { label: 'Consultancy', to: '/consultancy' },
 ]
 
 const footerLinks = [
   { label: 'Contact & Support', to: '/contact' },
   { label: 'Cassava Knowledge Hub', to: '/knowledge' },
+  { label: 'Varieties', to: '/varieties' },
   { label: 'Research Highlights', to: '/research' },
   { label: 'Marketplace Preview', to: '/marketplace' },
 ]
@@ -37,7 +37,8 @@ const PublicLayout = () => {
 
   const isMarketplace = location.pathname === '/marketplace'
   const isConsultancy = location.pathname === '/consultancy'
-  const shouldHaveWhiteBg = isMarketplace || isConsultancy
+  const isVarieties = location.pathname === '/varieties'
+  const shouldHaveWhiteBg = isMarketplace || isConsultancy || isVarieties
 
   return (
     <div className={`min-h-screen ${shouldHaveWhiteBg ? 'bg-slate-50' : ''}`}>

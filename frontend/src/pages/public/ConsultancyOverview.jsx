@@ -155,7 +155,7 @@ This request was submitted from the Cassava Digital Consultancy page.
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20"
+                className="w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20"
                 placeholder="John Doe"
               />
             </div>
@@ -173,7 +173,7 @@ This request was submitted from the Cassava Digital Consultancy page.
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20"
+                className="w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20"
                 placeholder="john@example.com"
               />
             </div>
@@ -194,7 +194,7 @@ This request was submitted from the Cassava Digital Consultancy page.
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20"
+                className="w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20"
                 placeholder="+233 XX XXX XXXX"
               />
             </div>
@@ -211,7 +211,7 @@ This request was submitted from the Cassava Digital Consultancy page.
                 value={formData.consultationType}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20"
+                className="w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20"
               >
                 <option value="">Select consultation type</option>
                 {consultationTypes.map((type) => (
@@ -239,7 +239,7 @@ This request was submitted from the Cassava Digital Consultancy page.
                 value={formData.preferredDate}
                 onChange={handleChange}
                 min={new Date().toISOString().split('T')[0]}
-                className="w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20"
+                className="w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20"
               />
             </div>
             <div>
@@ -254,7 +254,7 @@ This request was submitted from the Cassava Digital Consultancy page.
                 name="preferredTime"
                 value={formData.preferredTime}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20"
+                className="w-full rounded-lg border border-slate-300 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20"
               >
                 <option value="">Select time</option>
                 <option value="Morning (9:00 AM - 12:00 PM)">Morning (9:00 AM - 12:00 PM)</option>
@@ -279,7 +279,7 @@ This request was submitted from the Cassava Digital Consultancy page.
               onChange={handleChange}
               required
               rows="5"
-              className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20"
+              className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20"
               placeholder="Please describe your farming challenge or what you'd like to discuss..."
             />
           </div>
@@ -289,7 +289,7 @@ This request was submitted from the Cassava Digital Consultancy page.
             <button
               type="submit"
               disabled={isSubmitting}
-              className="rounded-lg bg-yellow-400 px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-lg bg-green-400 px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isSubmitting ? 'Submitting...' : 'Submit Consultation Request'}
             </button>

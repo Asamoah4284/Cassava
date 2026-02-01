@@ -25,11 +25,10 @@ const KnowledgeHub = () => {
 
   // Navigation links matching home screen
   const navLinks = [
-    { label: 'Home', to: '/' },
     { label: 'About', to: '/about' },
     { label: 'Cassava News', to: '/knowledge' },
+    { label: 'Varieties', to: '/varieties' },
     { label: 'Research', to: '/research' },
-    { label: 'Marketplace', to: '/marketplace' },
     { label: 'Consultancy', to: '/consultancy' },
   ]
 
@@ -104,18 +103,18 @@ const categories = [
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header Navigation - Dark theme with yellow accents */}
+      {/* Header Navigation - Dark theme with green accents */}
       <header className="sticky top-0 z-30 bg-[#0A0B10] text-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           {/* Brand/Logo Section */}
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold uppercase tracking-[0.2em] text-yellow-400">
+          <Link to="/" className="flex flex-col transition hover:opacity-90">
+            <span className="text-sm font-semibold uppercase tracking-[0.2em] text-green-400">
               CASSAVA DIGITAL
             </span>
             <span className="text-xs text-gray-400">
               Knowledge, consultancy, and market platform
             </span>
-          </div>
+          </Link>
 
           {/* Navigation Links - Center */}
           <nav className="hidden items-center gap-5 text-sm font-medium md:flex">
@@ -126,8 +125,8 @@ const categories = [
                 className={({ isActive }) =>
                   `transition ${
                     isActive
-                      ? 'text-yellow-400'
-                      : 'text-gray-300 hover:text-yellow-400'
+                      ? 'text-green-400'
+                      : 'text-gray-300 hover:text-green-400'
                   }`
                 }
                 end={link.to === '/'}
@@ -143,7 +142,7 @@ const categories = [
               +233 000 000 000
             </div>
             <Link
-              className="rounded-full bg-yellow-400 px-5 py-2 text-xs font-semibold text-slate-900 shadow-sm transition hover:bg-yellow-300"
+              className="rounded-full bg-green-400 px-5 py-2 text-xs font-semibold text-slate-900 shadow-sm transition hover:bg-green-300"
               to="/contact"
             >
               Get In Touch
@@ -207,8 +206,8 @@ const categories = [
                   className={({ isActive }) =>
                     `text-sm font-medium transition-all duration-200 ${
                       isActive
-                        ? 'text-yellow-400'
-                        : 'text-gray-300 hover:text-yellow-400'
+                        ? 'text-green-400'
+                        : 'text-gray-300 hover:text-green-400'
                     } ${
                       isMobileMenuOpen
                         ? 'translate-x-0 opacity-100'
@@ -234,7 +233,7 @@ const categories = [
                   +233 000 000 000
                 </div>
                 <Link
-                  className="rounded-full bg-yellow-400 px-5 py-2 text-center text-xs font-semibold text-slate-900 shadow-sm transition hover:bg-yellow-300"
+                  className="rounded-full bg-green-400 px-5 py-2 text-center text-xs font-semibold text-slate-900 shadow-sm transition hover:bg-green-300"
                   to="/contact"
                   onClick={closeMobileMenu}
                 >
@@ -385,14 +384,14 @@ const categories = [
               </p>
 
               {/* Blockquote */}
-              <blockquote className="my-8 border-l-4 border-yellow-400 bg-yellow-50 p-6 pl-8">
-                <div className="mb-2 text-4xl text-yellow-400">"</div>
+              <blockquote className="my-8 border-l-4 border-green-400 bg-green-50 p-6 pl-8">
+                <div className="mb-2 text-4xl text-green-400">"</div>
                 <p className="text-lg italic text-gray-800">
                   Cassava is not just a crop; it's a lifeline for millions of
                   farmers and a cornerstone of food security in developing
                   nations.
                 </p>
-                <cite className="mt-4 block text-sm font-semibold text-yellow-600">
+                <cite className="mt-4 block text-sm font-semibold text-green-600">
                   - Agricultural Research Institute
                 </cite>
               </blockquote>
@@ -422,7 +421,7 @@ const categories = [
                       <li className="flex items-start gap-3">
       <svg
         viewBox="0 0 24 24"
-                          className="mt-0.5 h-5 w-5 flex-shrink-0 text-yellow-500"
+                          className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-500"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
@@ -439,7 +438,7 @@ const categories = [
                       <li className="flex items-start gap-3">
       <svg
         viewBox="0 0 24 24"
-                          className="mt-0.5 h-5 w-5 flex-shrink-0 text-yellow-500"
+                          className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-500"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
@@ -456,7 +455,7 @@ const categories = [
                       <li className="flex items-start gap-3">
       <svg
         viewBox="0 0 24 24"
-                          className="mt-0.5 h-5 w-5 flex-shrink-0 text-yellow-500"
+                          className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-500"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
@@ -495,8 +494,8 @@ const categories = [
             </div>
 
             {/* Related Article Callout */}
-            <div className="flex items-center gap-4 rounded-lg border-l-4 border-yellow-400 bg-yellow-50 p-6">
-              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-yellow-500 text-white">
+            <div className="flex items-center gap-4 rounded-lg border-l-4 border-green-400 bg-green-50 p-6">
+              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-500 text-white">
       <svg
         viewBox="0 0 24 24"
         className="h-6 w-6"
@@ -512,7 +511,7 @@ const categories = [
               <div>
                 <Link
                   to="/knowledge"
-                  className="text-lg font-semibold text-yellow-600 transition hover:text-yellow-700"
+                  className="text-lg font-semibold text-green-600 transition hover:text-green-700"
                 >
                   How Technology is Transforming Cassava Production
                 </Link>
@@ -558,7 +557,7 @@ const categories = [
                       id="name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20"
                       required
                     />
                   </div>
@@ -574,7 +573,7 @@ const categories = [
                       id="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20"
                       required
                     />
                   </div>
@@ -612,7 +611,7 @@ const categories = [
                 </div>
                 <button
                   type="submit"
-                  className="rounded-lg bg-yellow-400 px-6 py-3 font-semibold text-slate-900 transition hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
+                  className="rounded-lg bg-green-400 px-6 py-3 font-semibold text-slate-900 transition hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
                 >
                   POST COMMENT
                 </button>
@@ -625,7 +624,7 @@ const categories = [
             {/* Search Widget */}
             <div>
               <div className="mb-4 flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-yellow-400" />
+                <div className="h-2 w-2 rounded-full bg-green-400" />
                 <h3 className="text-lg font-bold text-gray-900">Search</h3>
               </div>
               <form onSubmit={handleSearch} className="flex gap-2">
@@ -634,11 +633,11 @@ const categories = [
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search Here"
-                  className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20"
+                  className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20"
                 />
                 <button
                   type="submit"
-                  className="rounded-lg bg-yellow-400 px-4 py-2 font-semibold text-slate-900 transition hover:bg-yellow-500"
+                  className="rounded-lg bg-green-400 px-4 py-2 font-semibold text-slate-900 transition hover:bg-green-500"
                 >
                   Search
                 </button>
@@ -648,7 +647,7 @@ const categories = [
             {/* Categories Widget */}
             <div>
               <div className="mb-4 flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-yellow-400" />
+                <div className="h-2 w-2 rounded-full bg-green-400" />
                 <h3 className="text-lg font-bold text-gray-900">Categories</h3>
               </div>
               <ul className="space-y-2">
@@ -656,11 +655,11 @@ const categories = [
                   <li key={category}>
                     <Link
                       to={`/knowledge?category=${category.toLowerCase()}`}
-                      className="flex items-center gap-2 text-gray-700 transition hover:text-yellow-500"
+                      className="flex items-center gap-2 text-gray-700 transition hover:text-green-500"
                     >
                       <svg
                         viewBox="0 0 24 24"
-                        className="h-4 w-4 text-yellow-500"
+                        className="h-4 w-4 text-green-500"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
@@ -679,7 +678,7 @@ const categories = [
             {/* Popular Tags Widget */}
             <div>
               <div className="mb-4 flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-yellow-400" />
+                <div className="h-2 w-2 rounded-full bg-green-400" />
                 <h3 className="text-lg font-bold text-gray-900">Popular Tags</h3>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -687,7 +686,7 @@ const categories = [
                   <Link
                     key={tag}
                     to={`/knowledge?tag=${tag.toLowerCase()}`}
-                    className="rounded-full bg-gray-100 px-3 py-1.5 text-sm text-gray-700 transition hover:bg-yellow-400 hover:text-slate-900"
+                    className="rounded-full bg-gray-100 px-3 py-1.5 text-sm text-gray-700 transition hover:bg-green-400 hover:text-slate-900"
                   >
                     {tag}
                   </Link>
@@ -710,7 +709,7 @@ const categories = [
                 <div className="mb-4 flex justify-center">
                   <svg
                     viewBox="0 0 24 24"
-                    className="h-16 w-16 text-yellow-400"
+                    className="h-16 w-16 text-green-400"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -726,7 +725,7 @@ const categories = [
                 </h3>
                 <Link
                   to="/contact"
-                  className="inline-block rounded-lg bg-yellow-400 px-6 py-2.5 font-semibold text-slate-900 transition hover:bg-yellow-500"
+                  className="inline-block rounded-lg bg-green-400 px-6 py-2.5 font-semibold text-slate-900 transition hover:bg-green-500"
                 >
                   Contact Us &gt;
                 </Link>
@@ -754,7 +753,7 @@ const categories = [
               <div className="flex items-center gap-2">
                 <svg
                   viewBox="0 0 24 24"
-                  className="h-6 w-6 text-yellow-400"
+                  className="h-6 w-6 text-green-400"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
@@ -767,7 +766,7 @@ const categories = [
                 <span className="text-xl font-bold">Cassava Digital</span>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-yellow-500">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500">
                   <svg
                     viewBox="0 0 24 24"
                     className="h-4 w-4 text-white"
@@ -783,7 +782,7 @@ const categories = [
                 <span className="text-base font-medium">+1 (528) 456-7582</span>
               </div>
               <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-yellow-500">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500">
                   <svg
                     viewBox="0 0 24 24"
                     className="h-4 w-4 text-white"
@@ -806,7 +805,7 @@ const categories = [
             {/* Column 2 - Our Services */}
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-yellow-400" />
+                <div className="h-2 w-2 rounded-full bg-green-400" />
                 <h3 className="text-lg font-bold">Our Services</h3>
               </div>
               <ul className="flex flex-col gap-3">
@@ -820,11 +819,11 @@ const categories = [
                   <li key={service}>
                     <Link
                       to="/knowledge"
-                      className="flex items-center gap-2 text-sm text-gray-300 transition hover:text-yellow-400"
+                      className="flex items-center gap-2 text-sm text-gray-300 transition hover:text-green-400"
                     >
                       <svg
                         viewBox="0 0 24 24"
-                        className="h-4 w-4 text-yellow-500"
+                        className="h-4 w-4 text-green-500"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="2"
@@ -843,7 +842,7 @@ const categories = [
             {/* Column 3 - Newsletter */}
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-yellow-400" />
+                <div className="h-2 w-2 rounded-full bg-green-400" />
                 <h3 className="text-lg font-bold">Sign Up to our newsletter</h3>
               </div>
               <form
@@ -860,12 +859,12 @@ const categories = [
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                   placeholder="Email Address"
-                  className="flex-1 rounded-lg border border-gray-600 bg-white/10 px-4 py-2.5 text-sm text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none focus:ring-1 focus:ring-yellow-400"
+                  className="flex-1 rounded-lg border border-gray-600 bg-white/10 px-4 py-2.5 text-sm text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-1 focus:ring-green-400"
                   required
                 />
                 <button
                   type="submit"
-                  className="rounded-lg bg-yellow-400 px-4 py-2.5 font-semibold text-slate-900 transition hover:bg-yellow-500"
+                  className="rounded-lg bg-green-400 px-4 py-2.5 font-semibold text-slate-900 transition hover:bg-green-500"
                 >
                   Send
                 </button>
@@ -879,7 +878,7 @@ const categories = [
                   <a
                     key={social.name}
                     href="#"
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-500 text-white transition hover:bg-yellow-600"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500 text-white transition hover:bg-green-600"
                     aria-label={social.name}
                   >
                     <svg

@@ -69,7 +69,7 @@ const SiteFooter = memo(function SiteFooter({ links }) {
             <div className="flex items-center gap-2">
               <svg
                 viewBox="0 0 24 24"
-                className="h-6 w-6 text-yellow-400"
+                className="h-6 w-6 text-green-400"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -82,7 +82,7 @@ const SiteFooter = memo(function SiteFooter({ links }) {
               <span className="text-xl font-bold">Cassava Digital</span>
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-yellow-500">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500">
                 <svg
                   viewBox="0 0 24 24"
                   className="h-4 w-4 text-white"
@@ -98,7 +98,7 @@ const SiteFooter = memo(function SiteFooter({ links }) {
               <span className="text-base font-medium">+1 (528) 456-7582</span>
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-yellow-500">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500">
                 <svg
                   viewBox="0 0 24 24"
                   className="h-4 w-4 text-white"
@@ -121,7 +121,7 @@ const SiteFooter = memo(function SiteFooter({ links }) {
           {/* Column 2 - Our Services */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-yellow-400" />
+              <div className="h-2 w-2 rounded-full bg-green-400" />
               <h3 className="text-lg font-bold">Our Services</h3>
             </div>
             <ul className="flex flex-col gap-3">
@@ -135,11 +135,11 @@ const SiteFooter = memo(function SiteFooter({ links }) {
                 <li key={service}>
                   <Link
                     to="/knowledge"
-                    className="flex items-center gap-2 text-sm text-gray-300 transition hover:text-yellow-400"
+                    className="flex items-center gap-2 text-sm text-gray-300 transition hover:text-green-400"
                   >
                     <svg
                       viewBox="0 0 24 24"
-                      className="h-4 w-4 text-yellow-500"
+                      className="h-4 w-4 text-green-500"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
@@ -158,7 +158,7 @@ const SiteFooter = memo(function SiteFooter({ links }) {
           {/* Column 3 - Newsletter */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
-              <div className="h-2 w-2 rounded-full bg-yellow-400" />
+              <div className="h-2 w-2 rounded-full bg-green-400" />
               <h3 className="text-lg font-bold">Sign Up to our newsletter</h3>
             </div>
             <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
@@ -167,12 +167,12 @@ const SiteFooter = memo(function SiteFooter({ links }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email Address"
-                className="flex-1 rounded-lg border border-gray-600 bg-white/10 px-4 py-2.5 text-sm text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none focus:ring-1 focus:ring-yellow-400"
+                className="flex-1 rounded-lg border border-gray-600 bg-white/10 px-4 py-2.5 text-sm text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-1 focus:ring-green-400"
                 required
               />
               <button
                 type="submit"
-                className="rounded-lg bg-yellow-400 px-4 py-2.5 font-semibold text-slate-900 transition hover:bg-yellow-500"
+                className="rounded-lg bg-green-400 px-4 py-2.5 font-semibold text-slate-900 transition hover:bg-green-500"
               >
                 Send
               </button>
@@ -186,7 +186,7 @@ const SiteFooter = memo(function SiteFooter({ links }) {
                 <a
                   key={social.name}
                   href="#"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-yellow-500 text-white transition hover:bg-yellow-600"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500 text-white transition hover:bg-green-600"
                   aria-label={social.name}
                 >
                   <svg

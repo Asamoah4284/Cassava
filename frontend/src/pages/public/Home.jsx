@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import PrimaryButton from '../../components/cyphill/PrimaryButton'
 
 const heroBackgrounds = [
@@ -65,20 +66,20 @@ const Home = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/70" />
           <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 pb-24 pt-36 text-center text-white">
             <div className="flex flex-col items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full border border-amber-300/40 bg-black/30">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full border border-green-300/40 bg-black/30">
                 <svg
                   viewBox="0 0 24 24"
                   aria-hidden="true"
-                  className="h-4 w-4 text-amber-300"
+                  className="h-4 w-4 text-green-300"
                   fill="currentColor"
                 >
                   <path d="M12.6 2.4c2.1.7 3.7 2.7 4.1 5.3 2.1.5 3.7 2 4.3 4.1-2.3-.7-4.6-.3-6.2 1.1-1.2 1-2 2.5-2.2 4.1-1.7-1.3-2.8-3.4-2.8-5.7 0-.5 0-1 .1-1.5-1.9 1.3-3 3.6-2.8 6-2-1.6-3.2-4.3-2.6-7 .6-2.8 2.9-4.8 5.7-5.1.4-1.2 1.3-2.2 2.4-2.7z" />
                 </svg>
               </span>
-              <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-amber-200">
-                <span className="h-px w-8 bg-amber-200/60" />
+              <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-green-200">
+                <span className="h-px w-8 bg-green-200/60" />
                 We are a dedicated cassava farming company
-                <span className="h-px w-8 bg-amber-200/60" />
+                <span className="h-px w-8 bg-green-200/60" />
               </p>
             </div>
             <h1 className="mt-5 text-4xl font-semibold leading-tight md:text-5xl lg:text-6xl">
@@ -91,13 +92,13 @@ const Home = () => {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <PrimaryButton
                 to="/about"
-                className="bg-amber-400 px-6 py-3 text-slate-900 hover:bg-amber-300 focus-visible:outline-amber-400"
+                className="bg-green-400 px-6 py-3 text-slate-900 hover:bg-green-300 focus-visible:outline-green-400"
               >
                 Explore Our Farm
               </PrimaryButton>
               <PrimaryButton
                 to="/contact"
-                className="border border-amber-300/70 bg-transparent px-6 py-3 text-amber-100 hover:border-amber-200 hover:text-white focus-visible:outline-amber-300"
+                className="border border-green-300/70 bg-transparent px-6 py-3 text-green-100 hover:border-green-200 hover:text-white focus-visible:outline-green-300"
                 variant="secondary"
               >
                 Contact Us
@@ -208,8 +209,8 @@ const Home = () => {
 
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-amber-300" />
-              <span className="flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-amber-600">
+              <span className="h-px w-8 bg-green-300" />
+              <span className="flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-green-600">
                 <svg
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -225,7 +226,7 @@ const Home = () => {
                 </svg>
                 About Us
               </span>
-              <span className="h-px w-8 bg-amber-300" />
+              <span className="h-px w-8 bg-green-300" />
             </div>
             <h2 className="text-3xl font-semibold leading-tight text-slate-900 md:text-4xl">
               Agriculture & Organic
@@ -244,7 +245,7 @@ const Home = () => {
 
             <div className="grid gap-4 md:grid-cols-2">
               <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-200 bg-amber-50 text-amber-600">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-green-200 bg-green-50 text-green-600">
                   <svg
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -267,7 +268,7 @@ const Home = () => {
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-200 bg-amber-50 text-amber-600">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-green-200 bg-green-50 text-green-600">
                   <svg
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -292,25 +293,25 @@ const Home = () => {
 
             <div className="grid grid-cols-2 gap-3 text-xs text-slate-600">
               <span className="flex items-center gap-2">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-100 text-amber-600 text-[10px]">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-green-100 text-green-600 text-[10px]">
                   ✓
                 </span>
                 100% organic
               </span>
               <span className="flex items-center gap-2">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-100 text-amber-600 text-[10px]">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-green-100 text-green-600 text-[10px]">
                   ✓
                 </span>
                 Chemical-free farming
               </span>
               <span className="flex items-center gap-2">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-100 text-amber-600 text-[10px]">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-green-100 text-green-600 text-[10px]">
                   ✓
                 </span>
                 Quality control
               </span>
               <span className="flex items-center gap-2">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-100 text-amber-600 text-[10px]">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-green-100 text-green-600 text-[10px]">
                   ✓
                 </span>
                 Fresh from farm
@@ -320,7 +321,7 @@ const Home = () => {
             <div className="pt-2">
               <PrimaryButton
                 to="/knowledge"
-                className="bg-amber-500 text-slate-900 hover:bg-amber-600 focus-visible:outline-amber-500"
+                className="bg-green-500 text-slate-900 hover:bg-green-600 focus-visible:outline-green-500"
               >
                 Explore More
               </PrimaryButton>
@@ -406,203 +407,138 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-white pt-16 pb-24 md:pt-32 md:pb-32 -mt-px mb-px">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="flex flex-col gap-12">
-            {/* Header */}
-            <div className="flex flex-col gap-3 text-center">
-              <h2 className="text-4xl font-semibold tracking-tight text-slate-900 md:text-5xl">
-                Built for Everyone in the
-                <br />
-                Cassava Ecosystem
-              </h2>
-              <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600">
-                Find your role and discover how Cassava Digital empowers your journey
-                in sustainable agriculture
+      <section className="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] overflow-hidden bg-slate-900 pt-16 pb-24 md:pt-24 md:pb-32 -mt-px mb-px">
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
+        <div className="relative mx-auto max-w-6xl px-6">
+          {/* Header */}
+          <div className="mb-12 text-center md:mb-16">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-green-400">
+              Who it&apos;s for
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl">
+              Built for everyone in the
+              <br className="hidden sm:block" />
+              <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Cassava Ecosystem</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-slate-400">
+              Find your role. Get knowledge, markets, and support in one place.
+            </p>
+          </div>
+
+          {/* Bento grid */}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:grid-rows-2 md:gap-5">
+            {/* Featured: Farmers - large card */}
+            <Link
+              to="/register?role=farmer"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-green-500/10 md:col-span-2 md:row-span-2 md:p-8"
+            >
+              {/* Picture background */}
+              <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: "url('https://i.pinimg.com/1200x/8b/71/03/8b7103b8032f00d63a3bb276e2cb0ec7.jpg')",
+                }}
+              />
+              {/* Green gradient overlay on top of picture */}
+              <div className="absolute inset-0 bg-gradient-to-br from-green-600/95 via-green-700/90 to-slate-900/95" />
+              <div className="absolute right-0 top-0 h-40 w-40 -translate-y-1/2 translate-x-1/2 rounded-full bg-white/10 blur-2xl" />
+              <div className="relative z-10">
+                <span className="text-xs font-bold uppercase tracking-widest text-green-200/90">Role 01</span>
+                <h3 className="mt-2 text-2xl font-bold text-white md:text-3xl lg:text-4xl">Farmers</h3>
+                <p className="mt-3 max-w-md text-sm leading-relaxed text-green-50/90 md:text-base">
+                  Learn best practices, get expert help, sell cassava directly, and receive timely alerts—all from one platform.
+                </p>
+              </div>
+              <div className="relative z-10 mt-6 flex items-center gap-2 text-sm font-semibold text-white md:mt-8">
+                Join as Farmer
+                <span className="transition-transform group-hover:translate-x-1">→</span>
+              </div>
+            </Link>
+
+            {/* Consultants */}
+            <Link
+              to="/register?role=consultant"
+              className="group flex flex-col rounded-2xl border border-slate-700/80 bg-slate-800/50 p-5 backdrop-blur-sm transition-all duration-300 hover:border-green-500/50 hover:bg-slate-800/80 md:p-6"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-500/20 text-green-400 transition-colors group-hover:bg-green-500/30">
+                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                  <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+              </div>
+              <h3 className="mt-4 text-lg font-bold text-white">Consultants</h3>
+              <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                Offer advisory services and share your expertise with farmers.
               </p>
-            </div>
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-green-400 group-hover:gap-2">
+                Become a Consultant →
+              </span>
+            </Link>
 
-            {/* Cards Grid */}
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {/* Farmers Card */}
-              <div className="flex flex-col gap-5 rounded-xl border border-slate-200 bg-white p-6 transition-shadow hover:shadow-md">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
-                  <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                    className="h-6 w-6"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M6 13h12M6 6h12M6 20h12" />
-                    <path d="M3 3h18v18H3z" />
-                    <path d="M9 9h6v6H9z" />
-                  </svg>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-xl font-semibold text-slate-900">Farmers</h3>
-                  <p className="text-sm leading-relaxed text-slate-600">
-                    Learn best practices, get expert help, sell cassava directly,
-                    and receive timely alerts
-                  </p>
-                </div>
-                <div className="pt-1">
-                  <PrimaryButton
-                    to="/register?role=farmer"
-                    className="w-full justify-center bg-amber-400 px-6 py-3 text-slate-900 hover:bg-amber-500 focus-visible:outline-amber-400"
-                  >
-                    Join as Farmer
-                  </PrimaryButton>
-                </div>
+            {/* Researchers */}
+            <Link
+              to="/register?role=researcher"
+              className="group flex flex-col rounded-2xl border border-slate-700/80 bg-slate-800/50 p-5 backdrop-blur-sm transition-all duration-300 hover:border-green-500/50 hover:bg-slate-800/80 md:p-6"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-500/20 text-green-400 transition-colors group-hover:bg-green-500/30">
+                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+                  <path d="M8 7h8M8 12h8M8 17h4" />
+                </svg>
               </div>
+              <h3 className="mt-4 text-lg font-bold text-white">Researchers</h3>
+              <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                Publish research, track impact, and connect with practitioners.
+              </p>
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-green-400 group-hover:gap-2">
+                Publish Research →
+              </span>
+            </Link>
 
-              {/* Consultants / Agronomists Card */}
-              <div className="flex flex-col gap-5 rounded-xl border border-slate-200 bg-white p-6 transition-shadow hover:shadow-md">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
-                  <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                    className="h-6 w-6"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
-                  </svg>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-xl font-semibold text-slate-900">
-                    Consultants / Agronomists
-                  </h3>
-                  <p className="text-sm leading-relaxed text-slate-600">
-                    Offer advisory services, earn income, and share your expertise
-                    with farmers
-                  </p>
-                </div>
-                <div className="pt-1">
-                  <PrimaryButton
-                    to="/register?role=consultant"
-                    className="w-full justify-center bg-amber-400 px-6 py-3 text-slate-900 hover:bg-amber-500 focus-visible:outline-amber-400"
-                  >
-                    Become a Consultant
-                  </PrimaryButton>
-                </div>
+            {/* Buyers & Processors */}
+            <Link
+              to="/marketplace"
+              className="group flex flex-col rounded-2xl border border-slate-700/80 bg-slate-800/50 p-5 backdrop-blur-sm transition-all duration-300 hover:border-green-500/50 hover:bg-slate-800/80 md:col-span-1 md:p-6"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-500/20 text-green-400 transition-colors group-hover:bg-green-500/30">
+                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="9" cy="21" r="1" />
+                  <circle cx="20" cy="21" r="1" />
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                </svg>
               </div>
+              <h3 className="mt-4 text-lg font-bold text-white">Buyers & Processors</h3>
+              <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                Source quality cassava from verified farmers.
+              </p>
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-green-400 group-hover:gap-2">
+                Browse Marketplace →
+              </span>
+            </Link>
 
-              {/* Researchers Card */}
-              <div className="flex flex-col gap-5 rounded-xl border border-slate-200 bg-white p-6 transition-shadow hover:shadow-md">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
-                  <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                    className="h-6 w-6"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
-                    <path d="M8 7h8M8 12h8M8 17h4" />
-                  </svg>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-xl font-semibold text-slate-900">Researchers</h3>
-                  <p className="text-sm leading-relaxed text-slate-600">
-                    Publish cassava research, track real-world impact, and connect
-                    with practitioners
-                  </p>
-                </div>
-                <div className="pt-1">
-                  <PrimaryButton
-                    to="/register?role=researcher"
-                    className="w-full justify-center bg-amber-400 px-6 py-3 text-slate-900 hover:bg-amber-500 focus-visible:outline-amber-400"
-                  >
-                    Publish Research
-                  </PrimaryButton>
-                </div>
+            {/* Partners */}
+            <Link
+              to="/contact?type=partner"
+              className="group flex flex-col rounded-2xl border border-slate-700/80 bg-slate-800/50 p-5 backdrop-blur-sm transition-all duration-300 hover:border-green-500/50 hover:bg-slate-800/80 md:col-span-2 md:flex-row md:items-center md:gap-6 md:p-6"
+            >
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-500/20 text-green-400 transition-colors group-hover:bg-green-500/30 md:h-14 md:w-14">
+                <svg viewBox="0 0 24 24" className="h-6 w-6 md:h-7 md:w-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
               </div>
-
-              {/* Buyers & Processors Card */}
-              <div className="flex flex-col gap-5 rounded-xl border border-slate-200 bg-white p-6 transition-shadow hover:shadow-md">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
-                  <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                    className="h-6 w-6"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="9" cy="21" r="1" />
-                    <circle cx="20" cy="21" r="1" />
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-                  </svg>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-xl font-semibold text-slate-900">
-                    Buyers & Processors
-                  </h3>
-                  <p className="text-sm leading-relaxed text-slate-600">
-                    Source high-quality cassava directly from verified farmers with
-                    transparent pricing
-                  </p>
-                </div>
-                <div className="pt-1">
-                  <PrimaryButton
-                    to="/marketplace"
-                    className="w-full justify-center bg-amber-400 px-6 py-3 text-slate-900 hover:bg-amber-500 focus-visible:outline-amber-400"
-                  >
-                    Browse Marketplace
-                  </PrimaryButton>
-                </div>
+              <div className="min-w-0 flex-1 md:mt-0">
+                <h3 className="text-lg font-bold text-white md:text-xl">Partners (Govt / NGOs)</h3>
+                <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                  Access comprehensive data, launch programs, and gain actionable insights for the cassava value chain.
+                </p>
               </div>
-
-              {/* Partners Card */}
-              <div className="flex flex-col gap-5 rounded-xl border border-slate-200 bg-white p-6 transition-shadow hover:shadow-md md:col-span-2 lg:col-span-1">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
-                  <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                    className="h-6 w-6"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-                  </svg>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-xl font-semibold text-slate-900">
-                    Partners (Govt / NGOs)
-                  </h3>
-                  <p className="text-sm leading-relaxed text-slate-600">
-                    Access comprehensive data, launch programs, and gain actionable
-                    insights
-                  </p>
-                </div>
-                <div className="pt-1">
-                  <PrimaryButton
-                    to="/contact?type=partner"
-                    className="w-full justify-center bg-amber-400 px-6 py-3 text-slate-900 hover:bg-amber-500 focus-visible:outline-amber-400"
-                  >
-                    Partner with Us
-                  </PrimaryButton>
-                </div>
-              </div>
-            </div>
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-green-400 group-hover:gap-2 md:mt-0 md:shrink-0">
+                Partner with Us →
+              </span>
+            </Link>
           </div>
         </div>
       </section>
@@ -623,8 +559,8 @@ const Home = () => {
             {/* Header */}
             <div className="flex flex-col items-center gap-6 text-center">
               <div className="flex items-center gap-3">
-                <span className="h-px w-12 bg-yellow-300" />
-                <span className="inline-flex items-center gap-2 rounded-full border border-yellow-200 bg-yellow-50 px-5 py-2 text-xs font-bold uppercase tracking-[0.15em] text-yellow-700 shadow-sm">
+                <span className="h-px w-12 bg-green-300" />
+                <span className="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-5 py-2 text-xs font-bold uppercase tracking-[0.15em] text-green-700 shadow-sm">
                   <svg
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -640,11 +576,11 @@ const Home = () => {
                   </svg>
                   Work Process
                 </span>
-                <span className="h-px w-12 bg-yellow-300" />
+                <span className="h-px w-12 bg-green-300" />
               </div>
               <h2 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl lg:text-6xl">
                 The{' '}
-                <span className="bg-gradient-to-r from-yellow-500 to-yellow-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-green-500 to-green-400 bg-clip-text text-transparent">
                   Agricultural
                 </span>{' '}
                 Process
@@ -659,11 +595,11 @@ const Home = () => {
               {/* Step 1 */}
               <div className="relative rounded-xl bg-white p-6 shadow-md">
                 <div className="relative mb-6 flex items-start">
-                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-yellow-500 bg-transparent">
+                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-green-500 bg-transparent">
                     <svg
                       viewBox="0 0 24 24"
                       aria-hidden="true"
-                      className="h-10 w-10 text-yellow-500"
+                      className="h-10 w-10 text-green-500"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
@@ -674,7 +610,7 @@ const Home = () => {
                       <circle cx="9" cy="7" r="4" />
                       <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
-                    <span className="absolute -bottom-1 -left-1 flex h-7 w-7 items-center justify-center rounded-full bg-yellow-500 text-xs font-bold text-white">
+                    <span className="absolute -bottom-1 -left-1 flex h-7 w-7 items-center justify-center rounded-full bg-green-500 text-xs font-bold text-white">
                       01
                     </span>
                   </div>
@@ -691,7 +627,7 @@ const Home = () => {
               </div>
 
               {/* Step 2 - Active/Highlighted */}
-              <div className="relative mt-16 rounded-xl bg-yellow-500 p-6 shadow-md lg:mt-20">
+              <div className="relative mt-16 rounded-xl bg-green-500 p-6 shadow-md lg:mt-20">
                 <div className="relative mb-6 flex items-start">
                   <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-white bg-transparent">
                     <svg
@@ -707,7 +643,7 @@ const Home = () => {
                       <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
                       <path d="M8 7h8M8 12h8M8 17h4" />
                     </svg>
-                    <span className="absolute -bottom-1 -left-1 flex h-7 w-7 items-center justify-center rounded-full bg-white text-xs font-bold text-yellow-500">
+                    <span className="absolute -bottom-1 -left-1 flex h-7 w-7 items-center justify-center rounded-full bg-white text-xs font-bold text-green-500">
                       02
                     </span>
                   </div>
@@ -726,11 +662,11 @@ const Home = () => {
               {/* Step 3 */}
               <div className="relative rounded-xl bg-white p-6 shadow-md">
                 <div className="relative mb-6 flex items-start">
-                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-yellow-500 bg-transparent">
+                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-green-500 bg-transparent">
                     <svg
                       viewBox="0 0 24 24"
                       aria-hidden="true"
-                      className="h-10 w-10 text-yellow-500"
+                      className="h-10 w-10 text-green-500"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
@@ -740,7 +676,7 @@ const Home = () => {
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                       <path d="M8 10h.01M12 10h.01M16 10h.01" />
                     </svg>
-                    <span className="absolute -bottom-1 -left-1 flex h-7 w-7 items-center justify-center rounded-full bg-yellow-500 text-xs font-bold text-white">
+                    <span className="absolute -bottom-1 -left-1 flex h-7 w-7 items-center justify-center rounded-full bg-green-500 text-xs font-bold text-white">
                       03
                     </span>
                   </div>
@@ -757,11 +693,11 @@ const Home = () => {
               {/* Step 4 */}
               <div className="relative mt-16 rounded-xl bg-white p-6 shadow-md lg:mt-20">
                 <div className="relative mb-6 flex items-start">
-                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-yellow-500 bg-transparent">
+                  <div className="relative flex h-20 w-20 items-center justify-center rounded-full border-2 border-green-500 bg-transparent">
                     <svg
                       viewBox="0 0 24 24"
                       aria-hidden="true"
-                      className="h-10 w-10 text-yellow-500"
+                      className="h-10 w-10 text-green-500"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
@@ -770,7 +706,7 @@ const Home = () => {
                     >
                       <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                     </svg>
-                    <span className="absolute -bottom-1 -left-1 flex h-7 w-7 items-center justify-center rounded-full bg-yellow-500 text-xs font-bold text-white">
+                    <span className="absolute -bottom-1 -left-1 flex h-7 w-7 items-center justify-center rounded-full bg-green-500 text-xs font-bold text-white">
                       04
                     </span>
                   </div>
