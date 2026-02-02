@@ -37,7 +37,7 @@ const PublicLayout = () => {
 
   const isMarketplace = location.pathname === '/marketplace'
   const isConsultancy = location.pathname === '/consultancy'
-  const isVarieties = location.pathname === '/varieties'
+  const isVarieties = location.pathname.startsWith('/varieties')
   const shouldHaveWhiteBg = isMarketplace || isConsultancy || isVarieties
 
   return (
