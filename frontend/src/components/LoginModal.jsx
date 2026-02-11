@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react'
-import { registerUser } from '../api/client'
+import { createPortal } from 'react-dom'
+import { loginUser } from '../api/client'
+import { useAuth } from '../context/AuthContext'
 
-const CreateAccountModal = ({ onClose, onSuccess }) => {
-  const [name, setName] = useState('')
+const LoginModal = ({ onClose }) => {
   const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
-  const [mounted, setMounted] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const { setAuth } = useAuth()
 
   useEffect(() => {
     const t = requestAnimationFrame(() => setMounted(true))
@@ -19,24 +20,23 @@ const CreateAccountModal = ({ onClose, onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-    if (!name.trim() || !email.trim() || !password) {
-      setError('Name, email and password are required.')
+    if (!email.trim() || !password) {
+      setError('Email and password are required.')
       return
     }
     setSubmitting(true)
     try {
-      const data = await registerUser({ name: name.trim(), email: email.trim(), phone: phone.trim(), password })
+      const data = await loginUser({ email: email.trim(), password })
       if (data.token && data.user) setAuth(data.token, data.user)
-      onSuccess?.()
       onClose()
     } catch (err) {
-      setError(err.message || 'Could not create account')
+      setError(err.message || 'Login failed')
     } finally {
       setSubmitting(false)
     }
   }
 
-  return (
+  const modal = (
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-200 ease-out ${
         mounted ? 'bg-black/50 opacity-100' : 'bg-black/0 opacity-0'
@@ -44,7 +44,7 @@ const CreateAccountModal = ({ onClose, onSuccess }) => {
       onClick={(e) => e.target === e.currentTarget && onClose()}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="create-account-title"
+      aria-labelledby="login-title"
     >
       <div
         className={`w-full max-w-lg border border-slate-200 bg-white shadow-lg transition-all duration-200 ease-out ${
@@ -53,32 +53,14 @@ const CreateAccountModal = ({ onClose, onSuccess }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="border-b border-slate-200 px-8 py-5">
-          <h2 id="create-account-title" className="text-xl font-semibold text-slate-900">Create an account</h2>
+          <h2 id="login-title" className="text-xl font-semibold text-slate-900">Sign in</h2>
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-5 p-8">
-          {error && (
-            <p className="bg-red-50 p-2 text-sm text-red-700">{error}</p>
-          )}
+          {error && <p className="bg-red-50 p-2 text-sm text-red-700">{error}</p>}
           <div>
-            <label htmlFor="create-name" className="block text-sm font-medium text-slate-700">
-              Name
-            </label>
+            <label htmlFor="login-email" className="block text-sm font-medium text-slate-700">Email</label>
             <input
-              id="create-name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Your full name"
-              className="mt-1.5 w-full border border-slate-300 px-3 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="create-email" className="block text-sm font-medium text-slate-700">
-              Email
-            </label>
-            <input
-              id="create-email"
+              id="login-email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -88,30 +70,14 @@ const CreateAccountModal = ({ onClose, onSuccess }) => {
             />
           </div>
           <div>
-            <label htmlFor="create-phone" className="block text-sm font-medium text-slate-700">
-              Phone
-            </label>
-            <input
-              id="create-phone"
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Phone number"
-              className="mt-1.5 w-full border border-slate-300 px-3 py-2.5 text-slate-900 placeholder:text-slate-400 focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
-            />
-          </div>
-          <div>
-            <label htmlFor="create-password" className="block text-sm font-medium text-slate-700">
-              Password
-            </label>
+            <label htmlFor="login-password" className="block text-sm font-medium text-slate-700">Password</label>
             <div className="relative mt-1.5">
               <input
-                id="create-password"
+                id="login-password"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                minLength={6}
-                placeholder="At least 6 characters"
+                placeholder="Password"
                 className="w-full border border-slate-300 py-2.5 pl-3 pr-10 text-slate-900 placeholder:text-slate-400 focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
                 required
               />
@@ -133,28 +99,21 @@ const CreateAccountModal = ({ onClose, onSuccess }) => {
                 )}
               </button>
             </div>
-            <p className="mt-1 text-xs text-slate-500">At least 6 characters</p>
           </div>
           <div className="flex justify-end gap-2 border-t border-slate-200 pt-5">
-            <button
-              type="button"
-              onClick={onClose}
-              className="border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
-            >
+            <button type="button" onClick={onClose} className="border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50">
               Cancel
             </button>
-            <button
-              type="submit"
-              disabled={submitting}
-              className="bg-green-500 px-4 py-2.5 text-sm font-semibold text-slate-900 hover:bg-green-400 disabled:opacity-60"
-            >
-              {submitting ? 'Creating…' : 'Create account'}
+            <button type="submit" disabled={submitting} className="bg-green-500 px-4 py-2.5 text-sm font-semibold text-slate-900 hover:bg-green-400 disabled:opacity-60">
+              {submitting ? 'Signing in…' : 'Sign in'}
             </button>
           </div>
         </form>
       </div>
     </div>
   )
+
+  return createPortal(modal, document.body)
 }
 
-export default CreateAccountModal
+export default LoginModal

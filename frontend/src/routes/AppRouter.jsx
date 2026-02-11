@@ -5,7 +5,6 @@ import PublicLayout from '../layouts/PublicLayout'
 import AdminLayout from '../layouts/AdminLayout'
 import About from '../pages/public/About'
 import ConsultancyOverview from '../pages/public/ConsultancyOverview'
-import ContactSupport from '../pages/public/ContactSupport'
 import Home from '../pages/public/Home'
 import KnowledgeHub from '../pages/public/KnowledgeHub'
 import MarketplacePreview from '../pages/public/MarketplacePreview'
@@ -13,9 +12,12 @@ import ResearchHighlights from '../pages/public/ResearchHighlights'
 import Varieties from '../pages/public/Varieties'
 import VarietyPurchase from '../pages/public/VarietyPurchase'
 import Register from '../pages/public/Register'
+import Profile from '../pages/public/Profile'
 import AdminLogin from '../pages/admin/AdminLogin'
 import AdminVarieties from '../pages/admin/AdminVarieties'
 import AdminOrders from '../pages/admin/AdminOrders'
+import AdminResearch from '../pages/admin/AdminResearch'
+import AdminConsultations from '../pages/admin/AdminConsultations'
 
 /**
  * App routing configuration for public and admin pages.
@@ -34,8 +36,8 @@ const AppRouter = () => {
           <Route path="/research" element={<ResearchHighlights />} />
           <Route path="/marketplace" element={<MarketplacePreview />} />
           <Route path="/consultancy" element={<ConsultancyOverview />} />
-          <Route path="/contact" element={<ContactSupport />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route
@@ -49,6 +51,8 @@ const AppRouter = () => {
           <Route index element={<Navigate to="/admin/varieties" replace />} />
           <Route path="varieties" element={<AdminVarieties />} />
           <Route path="orders" element={<AdminOrders />} />
+          <Route path="research" element={<AdminResearch />} />
+          <Route path="consultations" element={<AdminConsultations />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

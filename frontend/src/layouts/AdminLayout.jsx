@@ -4,6 +4,8 @@ import { adminLogout } from '../api/admin'
 const nav = [
   { to: '/admin/varieties', label: 'Varieties' },
   { to: '/admin/orders', label: 'Orders' },
+  { to: '/admin/research', label: 'Research' },
+  { to: '/admin/consultations', label: 'Consultations' },
 ]
 
 const AdminLayout = () => {

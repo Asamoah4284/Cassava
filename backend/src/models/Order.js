@@ -8,7 +8,8 @@ const orderSchema = new mongoose.Schema(
     quantity: { type: Number, required: true },
     totalCedis: { type: Number, required: true },
     customerEmail: { type: String, default: '' },
-    status: { type: String, enum: ['new', 'contacted', 'completed', 'cancelled'], default: 'new' },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+    status: { type: String, enum: ['new', 'approved', 'contacted', 'completed', 'cancelled'], default: 'new' },
   },
   { timestamps: true }
 )

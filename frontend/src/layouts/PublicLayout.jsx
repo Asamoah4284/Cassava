@@ -11,7 +11,6 @@ const navLinks = [
 ]
 
 const footerLinks = [
-  { label: 'Contact & Support', to: '/contact' },
   { label: 'Cassava Knowledge Hub', to: '/knowledge' },
   { label: 'Varieties', to: '/varieties' },
   { label: 'Research Highlights', to: '/research' },
@@ -38,10 +37,11 @@ const PublicLayout = () => {
   const isMarketplace = location.pathname === '/marketplace'
   const isConsultancy = location.pathname === '/consultancy'
   const isVarieties = location.pathname.startsWith('/varieties')
-  const shouldHaveWhiteBg = isMarketplace || isConsultancy || isVarieties
+  const isProfile = location.pathname === '/profile'
+  const shouldHaveWhiteBg = isMarketplace || isConsultancy || isVarieties || isProfile
 
   return (
-    <div className={`min-h-screen ${shouldHaveWhiteBg ? 'bg-slate-50' : ''}`}>
+    <div className={`min-h-screen ${shouldHaveWhiteBg ? (isProfile ? 'bg-white' : 'bg-slate-50') : ''}`}>
       <SiteHeader links={navLinks} variant={isHome ? 'overlay' : 'solid'} />
       <main
         className={`mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 md:px-6 ${

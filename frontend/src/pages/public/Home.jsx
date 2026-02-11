@@ -64,7 +64,7 @@ const Home = () => {
           />
           {/* Overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/70" />
-          <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 pb-24 pt-36 text-center text-white">
+          <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 py-12 text-center text-white">
             <div className="flex flex-col items-center gap-3">
               <span className="flex h-8 w-8 items-center justify-center rounded-full border border-green-300/40 bg-black/30">
                 <svg

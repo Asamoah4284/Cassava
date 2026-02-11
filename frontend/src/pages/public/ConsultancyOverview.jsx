@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import FeatureCard from '../../components/cyphill/FeatureCard'
-import SectionHeader from '../../components/cyphill/SectionHeader'
+import { submitConsultation } from '../../api/client'
 
 const services = [
   {
@@ -58,50 +58,29 @@ const ConsultancyOverview = () => {
     setSubmitStatus(null)
 
     try {
-      // Create email content
-      const subject = encodeURIComponent(
-        `Consultation Request: ${formData.consultationType || 'General Inquiry'}`
-      )
-      const body = encodeURIComponent(`
-Consultation Booking Request
-
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone || 'Not provided'}
-
-Consultation Type: ${formData.consultationType || 'Not specified'}
-Preferred Date: ${formData.preferredDate || 'Not specified'}
-Preferred Time: ${formData.preferredTime || 'Not specified'}
-
-Message:
-${formData.message}
-
----
-This request was submitted from the Cassava Digital Consultancy page.
-      `)
-
-      // Use mailto link to open email client
-      const mailtoLink = `mailto:info@cassavadigital.com?subject=${subject}&body=${body}`
-      window.location.href = mailtoLink
-
-      // Simulate successful submission
-      setTimeout(() => {
-        setSubmitStatus('success')
-        setIsSubmitting(false)
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          consultationType: '',
-          preferredDate: '',
-          preferredTime: '',
-          message: '',
-        })
-      }, 1000)
+      await submitConsultation({
+        fullName: formData.name,
+        email: formData.email,
+        phone: formData.phone || '',
+        consultationType: formData.consultationType,
+        preferredDate: formData.preferredDate || '',
+        preferredTime: formData.preferredTime || '',
+        message: formData.message,
+      })
+      setSubmitStatus('success')
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        consultationType: '',
+        preferredDate: '',
+        preferredTime: '',
+        message: '',
+      })
     } catch (error) {
       console.error('Error submitting consultation request:', error)
       setSubmitStatus('error')
+    } finally {
       setIsSubmitting(false)
     }
   }
@@ -295,7 +274,7 @@ This request was submitted from the Cassava Digital Consultancy page.
             </button>
             {submitStatus === 'success' && (
               <p className="text-sm font-medium text-green-600">
-                Request submitted! Check your email client to send the message.
+                Request submitted. We'll get back to you within 24 hours.
               </p>
             )}
             {submitStatus === 'error' && (

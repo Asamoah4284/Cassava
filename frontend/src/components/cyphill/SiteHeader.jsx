@@ -1,6 +1,8 @@
-import { memo, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import PrimaryButton from './PrimaryButton'
+import { memo, useState, useEffect, useRef } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
+import { getPendingOrdersCount } from '../../api/client'
+import LoginModal from '../LoginModal'
 
 /**
  * Primary navigation header for public pages.
@@ -10,7 +12,33 @@ import PrimaryButton from './PrimaryButton'
  */
 const SiteHeader = memo(function SiteHeader({ links, variant = 'solid' }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [profileOpen, setProfileOpen] = useState(false)
+  const [loginOpen, setLoginOpen] = useState(false)
+  const [pendingOrdersCount, setPendingOrdersCount] = useState(0)
+  const profileRef = useRef(null)
+  const { user, loading, logout } = useAuth()
+  const location = useLocation()
+
+  useEffect(() => {
+    if (!user) {
+      setPendingOrdersCount(0)
+      return
+    }
+    getPendingOrdersCount()
+      .then(setPendingOrdersCount)
+      .catch(() => setPendingOrdersCount(0))
+  }, [user, location.pathname])
   const isOverlay = variant === 'overlay'
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setProfileOpen(false)
+      }
+    }
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [])
 
   // Always use dark theme for navigation
   const headerClasses = isOverlay
@@ -65,18 +93,67 @@ const SiteHeader = memo(function SiteHeader({ links, variant = 'solid' }) {
           ))}
         </nav>
         <div className="hidden items-center gap-3 md:flex">
-          <Link
-            to="/contact"
-            className="rounded-lg bg-[#222434] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#2a2d42]"
-          >
-            Contact
-          </Link>
-          <Link
-            to="/marketplace"
-            className="rounded-lg bg-[#00C26D] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#00b362]"
-          >
-            Explore Market
-          </Link>
+          {!loading && user ? (
+            <div className="relative" ref={profileRef}>
+              <button
+                type="button"
+                onClick={() => setProfileOpen((o) => !o)}
+                className="relative flex items-center gap-2 rounded-lg bg-[#222434] px-3 py-2 text-sm font-medium text-white transition hover:bg-[#2a2d42]"
+                aria-expanded={profileOpen}
+                aria-haspopup="true"
+              >
+                <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-[#00C26D] text-sm font-semibold text-white">
+                  {(user.name || user.email || 'U').charAt(0).toUpperCase()}
+                  {pendingOrdersCount > 0 && (
+                    <span
+                      className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-amber-500 px-1 text-[10px] font-bold text-white"
+                      aria-label={`${pendingOrdersCount} pending order${pendingOrdersCount !== 1 ? 's' : ''}`}
+                    >
+                      {pendingOrdersCount > 99 ? '99+' : pendingOrdersCount}
+                    </span>
+                  )}
+                </span>
+                <span className="max-w-[120px] truncate text-gray-300">{user.name || user.email}</span>
+                <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {profileOpen && (
+                <div className="absolute right-0 top-full z-30 mt-1 min-w-[160px] rounded-lg border border-white/10 bg-[#10111F] py-1 shadow-lg">
+                  <Link
+                    to="/profile"
+                    onClick={() => setProfileOpen(false)}
+                    className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => { logout(); setProfileOpen(false) }}
+                    className="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Log out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={() => setLoginOpen(true)}
+                className="rounded-lg bg-[#222434] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#2a2d42]"
+              >
+                Sign in
+              </button>
+              <Link
+                to="/marketplace"
+                className="rounded-lg bg-[#00C26D] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#00b362]"
+              >
+                Explore Market
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Hamburger Menu Button - Mobile Only */}
@@ -159,24 +236,47 @@ const SiteHeader = memo(function SiteHeader({ links, variant = 'solid' }) {
                   : 'translate-y-4 opacity-0'
               }`}
             >
-              <Link
-                to="/contact"
-                onClick={closeMobileMenu}
-                className="rounded-lg bg-[#222434] px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-[#2a2d42]"
-              >
-                Contact
-              </Link>
-              <Link
-                to="/marketplace"
-                onClick={closeMobileMenu}
-                className="rounded-lg bg-[#00C26D] px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-[#00b362]"
-              >
-                Explore Market
-              </Link>
+              {user ? (
+                <>
+                  <Link
+                    to="/profile"
+                    onClick={closeMobileMenu}
+                    className="rounded-lg bg-[#222434] px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-[#2a2d42]"
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => { logout(); closeMobileMenu() }}
+                    className="rounded-lg bg-[#222434] px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-[#2a2d42]"
+                  >
+                    Log out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => { setLoginOpen(true); closeMobileMenu() }}
+                    className="rounded-lg bg-[#222434] px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-[#2a2d42]"
+                  >
+                    Sign in
+                  </button>
+                  <Link
+                    to="/marketplace"
+                    onClick={closeMobileMenu}
+                    className="rounded-lg bg-[#00C26D] px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-[#00b362]"
+                  >
+                    Explore Market
+                  </Link>
+                </>
+              )}
             </div>
           </nav>
         </div>
       </div>
+
+      {loginOpen && <LoginModal onClose={() => setLoginOpen(false)} />}
     </header>
   )
 })

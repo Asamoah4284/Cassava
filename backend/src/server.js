@@ -8,6 +8,10 @@ import ordersRouter from './routes/orders.js'
 import adminRouter from './routes/admin.js'
 import uploadRouter from './routes/upload.js'
 import registerRouter from './routes/register.js'
+import loginRouter from './routes/login.js'
+import meRouter from './routes/me.js'
+import researchRouter from './routes/research.js'
+import consultationsRouter from './routes/consultations.js'
 
 await connectDB()
 
@@ -26,6 +30,10 @@ app.use('/api/orders', ordersRouter)
 app.use('/api/admin', adminRouter)
 app.use('/api/admin/upload', uploadRouter)
 app.use('/api/register', registerRouter)
+app.use('/api/login', loginRouter)
+app.use('/api/me', meRouter)
+app.use('/api/research', researchRouter)
+app.use('/api/consultations', consultationsRouter)
 
 app.get('/api/health', (req, res) => {
   res.json({ ok: true, message: 'Cassava API' })

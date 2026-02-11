@@ -9,7 +9,7 @@ const router = express.Router()
  */
 router.post('/', async (req, res) => {
   try {
-    const { varietyId, varietyName, type, quantity, totalCedis, customerEmail } = req.body
+    const { varietyId, varietyName, type, quantity, totalCedis, customerEmail, userId } = req.body
     if (!varietyId || !varietyName || !type || quantity == null || totalCedis == null) {
       return res.status(400).json({ error: 'Missing required fields: varietyId, varietyName, type, quantity, totalCedis' })
     }
@@ -23,6 +23,7 @@ router.post('/', async (req, res) => {
       quantity: Number(quantity),
       totalCedis: Number(totalCedis),
       customerEmail: customerEmail || '',
+      userId: userId || null,
     })
     res.status(201).json(order)
   } catch (err) {
@@ -52,7 +53,7 @@ router.get('/', requireAdmin, async (req, res) => {
 router.patch('/:id', requireAdmin, async (req, res) => {
   try {
     const { status } = req.body
-    if (!['new', 'contacted', 'completed', 'cancelled'].includes(status)) {
+    if (!['new', 'approved', 'contacted', 'completed', 'cancelled'].includes(status)) {
       return res.status(400).json({ error: 'Invalid status' })
     }
     const order = await Order.findByIdAndUpdate(

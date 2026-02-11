@@ -31,6 +31,28 @@ const upload = multer({
   },
 })
 
+const documentStorage = multer.diskStorage({
+  destination: (_req, _file, cb) => cb(null, uploadsDir),
+  filename: (_req, file, cb) => {
+    const ext = path.extname(file.originalname) || '.pdf'
+    const safe = (file.originalname || 'document').replace(/[^a-zA-Z0-9.-]/g, '_')
+    cb(null, `${Date.now()}-${safe}`)
+  },
+})
+
+const documentUpload = multer({
+  storage: documentStorage,
+  limits: { fileSize: 15 * 1024 * 1024 },
+  fileFilter: (_req, file, cb) => {
+    const allowed =
+      file.mimetype === 'application/pdf' ||
+      file.mimetype === 'application/msword' ||
+      file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    if (allowed) cb(null, true)
+    else cb(new Error('Only PDF, DOC, or DOCX are allowed'))
+  },
+})
+
 const router = express.Router()
 
 /**
@@ -42,6 +64,27 @@ router.post('/', requireAdmin, (req, res) => {
     if (err) {
       if (err instanceof multer.MulterError && err.code === 'LIMIT_FILE_SIZE') {
         return res.status(400).json({ error: 'File too large (max 5MB)' })
+      }
+      return res.status(400).json({ error: err.message || 'Upload failed' })
+    }
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' })
+    }
+    const baseUrl = process.env.API_PUBLIC_URL || `${req.protocol}://${req.get('host')}`
+    const url = `${baseUrl}/uploads/${req.file.filename}`
+    res.json({ url })
+  })
+})
+
+/**
+ * POST /api/admin/upload/document — upload a research document (admin only). Multipart field: "document".
+ * Accepts PDF, DOC, DOCX. Max 15MB. Returns { url }.
+ */
+router.post('/document', requireAdmin, (req, res) => {
+  documentUpload.single('document')(req, res, (err) => {
+    if (err) {
+      if (err instanceof multer.MulterError && err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(400).json({ error: 'File too large (max 15MB)' })
       }
       return res.status(400).json({ error: err.message || 'Upload failed' })
     }

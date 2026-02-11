@@ -3,12 +3,14 @@ import { Link, useParams, Navigate } from 'react-router-dom'
 import { getVariety, createOrder } from '../../api/client'
 import { VARIETY_TYPES } from './Varieties'
 import CreateAccountModal from '../../components/CreateAccountModal'
+import { useAuth } from '../../context/AuthContext'
 
 /**
  * Purchase page for a single variety: choose type (Stick or Food), quantity, total, and place order.
  */
 const VarietyPurchase = () => {
   const { id } = useParams()
+  const { user } = useAuth()
   const [variety, setVariety] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -16,6 +18,7 @@ const VarietyPurchase = () => {
   const [quantity, setQuantity] = useState(1)
   const [showOrderConfirm, setShowOrderConfirm] = useState(false)
   const [showCreateAccountModal, setShowCreateAccountModal] = useState(false)
+  const [placingOrder, setPlacingOrder] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -105,15 +108,24 @@ const VarietyPurchase = () => {
     setShowOrderConfirm(false)
   }
   const handleStickClick = (acres) => setQuantity(acres)
-  const handlePlaceOrder = () => {
-    createOrder({
-      varietyId: variety._id,
-      varietyName: variety.name,
-      type: varietyType,
-      quantity,
-      totalCedis,
-    }).catch(() => { /* order still visible via email */ })
-    setShowOrderConfirm(true)
+  const handlePlaceOrder = async () => {
+    setPlacingOrder(true)
+    try {
+      await createOrder({
+        varietyId: variety._id,
+        varietyName: variety.name,
+        type: varietyType,
+        quantity,
+        totalCedis,
+        ...(user?.id && { userId: user.id }),
+      })
+      setShowOrderConfirm(true)
+    } catch {
+      // Order may still have been received; show confirm so user can retry or see next step
+      setShowOrderConfirm(true)
+    } finally {
+      setPlacingOrder(false)
+    }
   }
 
   const typeLabel = isStick ? 'Stick' : 'Food'
@@ -240,9 +252,37 @@ const VarietyPurchase = () => {
                 <button
                   type="button"
                   onClick={handlePlaceOrder}
-                  className="rounded-lg bg-green-500 px-5 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                  disabled={placingOrder}
+                  className="inline-flex items-center gap-2 rounded-lg bg-green-500 px-5 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  Place an order
+                  {placingOrder ? (
+                    <>
+                      <svg
+                        className="h-5 w-5 animate-spin"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        aria-hidden
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                      </svg>
+                      Placing order…
+                    </>
+                  ) : (
+                    'Place an order'
+                  )}
                 </button>
               </div>
             ) : (
@@ -253,19 +293,39 @@ const VarietyPurchase = () => {
                 <p className="mt-1 text-sm text-green-700">
                   Total: <strong>GHS {totalCedis}</strong>
                 </p>
-                <p className="mt-3 text-sm text-slate-600">
-                  Create an account to complete your order and track your purchase.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setShowCreateAccountModal(true)}
-                  className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg bg-green-500 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                >
-                  Create an account
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </button>
+                {user ? (
+                  <>
+                    <p className="mt-3 text-sm text-slate-600">
+                      Order received. You can view and track it in your dashboard.
+                    </p>
+                    <Link
+                      to="/profile"
+                      state={{ tab: 'orders' }}
+                      className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg bg-green-500 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                    >
+                      View my orders
+                      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <p className="mt-3 text-sm text-slate-600">
+                      Create an account to complete your order and track your purchase.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setShowCreateAccountModal(true)}
+                      className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg bg-green-500 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                    >
+                      Create an account
+                      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </button>
+                  </>
+                )}
                 <button
                   type="button"
                   onClick={() => setShowOrderConfirm(false)}

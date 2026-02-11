@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { getVarieties } from '../../api/client'
 import { createVariety, deleteVariety, updateVariety } from '../../api/admin'
 import VarietyForm from '../../components/admin/VarietyForm'
+import DeleteConfirmModal from '../../components/admin/DeleteConfirmModal'
 
 const AdminVarieties = () => {
   const [varieties, setVarieties] = useState([])
@@ -10,6 +10,8 @@ const AdminVarieties = () => {
   const [error, setError] = useState(null)
   const [editing, setEditing] = useState(null)
   const [creating, setCreating] = useState(false)
+  const [deleting, setDeleting] = useState(null)
+  const [deleteInProgress, setDeleteInProgress] = useState(false)
 
   const load = () => {
     setLoading(true)
@@ -23,13 +25,20 @@ const AdminVarieties = () => {
     load()
   }, [])
 
-  const handleDelete = async (id, name) => {
-    if (!window.confirm(`Delete variety "${name}"?`)) return
+  const openDeleteModal = (v) => setDeleting({ id: v._id, name: v.name })
+  const closeDeleteModal = () => setDeleting(null)
+
+  const handleConfirmDelete = async () => {
+    if (!deleting) return
+    setDeleteInProgress(true)
     try {
-      await deleteVariety(id)
+      await deleteVariety(deleting.id)
+      closeDeleteModal()
       load()
     } catch (err) {
       setError(err.message)
+    } finally {
+      setDeleteInProgress(false)
     }
   }
 
@@ -77,6 +86,9 @@ const AdminVarieties = () => {
           <thead className="bg-slate-50">
             <tr>
               <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-600">
+                Image
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-600">
                 Variety
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-600">
@@ -90,6 +102,13 @@ const AdminVarieties = () => {
           <tbody className="divide-y divide-slate-200 bg-white">
             {varieties.map((v) => (
               <tr key={v._id}>
+                <td className="whitespace-nowrap px-4 py-2">
+                  <img
+                    src={v.image}
+                    alt={v.name}
+                    className="h-12 w-16 rounded border border-slate-200 object-cover"
+                  />
+                </td>
                 <td className="whitespace-nowrap px-4 py-3">
                   <span className="font-medium text-slate-900">{v.name}</span>
                 </td>
@@ -106,7 +125,7 @@ const AdminVarieties = () => {
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleDelete(v._id, v.name)}
+                    onClick={() => openDeleteModal(v)}
                     className="text-sm font-medium text-red-600 hover:text-red-700"
                   >
                     Delete
@@ -134,6 +153,15 @@ const AdminVarieties = () => {
           onSave={(data) => handleUpdate(editing._id, data)}
           onCancel={() => setEditing(null)}
           title="Edit variety"
+        />
+      )}
+      {deleting && (
+        <DeleteConfirmModal
+          title="Delete variety"
+          message={`Delete "${deleting.name}"? This cannot be undone.`}
+          onConfirm={handleConfirmDelete}
+          onCancel={closeDeleteModal}
+          confirming={deleteInProgress}
         />
       )}
     </div>

@@ -106,3 +106,68 @@ export async function uploadImage(file) {
   const data = await res.json()
   return data.url
 }
+
+/**
+ * Upload a research document (PDF, DOC, DOCX). Returns { url }.
+ */
+export async function uploadDocument(file) {
+  const token = getAdminToken()
+  if (!token) throw new Error('Not authenticated')
+  const formData = new FormData()
+  formData.append('document', file)
+  const res = await fetch(`${API_BASE}/api/admin/upload/document`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+    body: formData,
+  })
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}))
+    throw new Error(data.error || 'Upload failed')
+  }
+  const data = await res.json()
+  return data.url
+}
+
+export async function createResearch(body) {
+  const res = await fetch(`${API_BASE}/api/research`, {
+    method: 'POST',
+    headers: authHeaders(),
+    body: JSON.stringify(body),
+  })
+  if (!res.ok) throw new Error('Failed to create research')
+  return res.json()
+}
+
+export async function updateResearch(id, body) {
+  const res = await fetch(`${API_BASE}/api/research/${id}`, {
+    method: 'PUT',
+    headers: authHeaders(),
+    body: JSON.stringify(body),
+  })
+  if (!res.ok) throw new Error('Failed to update research')
+  return res.json()
+}
+
+export async function deleteResearch(id) {
+  const res = await fetch(`${API_BASE}/api/research/${id}`, {
+    method: 'DELETE',
+    headers: authHeaders(),
+  })
+  if (!res.ok) throw new Error('Failed to delete research')
+}
+
+export async function getConsultations() {
+  const res = await fetch(`${API_BASE}/api/consultations`, { headers: authHeaders() })
+  if (!res.ok) throw new Error('Failed to fetch consultations')
+  return res.json()
+}
+
+export async function updateConsultationStatus(id, status) {
+  const res = await fetch(`${API_BASE}/api/consultations/${id}`, {
+    method: 'PATCH',
+    headers: authHeaders(),
+    body: JSON.stringify({ status }),
+  })
+  if (!res.ok) throw new Error('Failed to update consultation')
+  return res.json()
+}
