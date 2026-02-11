@@ -1,20 +1,96 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams, Navigate } from 'react-router-dom'
-import { varieties, VARIETY_TYPES } from './Varieties'
-
-const MANUAL_PAYMENT_PERCENT = 0.4
+import { getVariety, createOrder } from '../../api/client'
+import { VARIETY_TYPES } from './Varieties'
+import CreateAccountModal from '../../components/CreateAccountModal'
 
 /**
- * Purchase page for a single variety: choose type (Stick or Food), quantity, total, and Pay with manual (40%) option.
+ * Purchase page for a single variety: choose type (Stick or Food), quantity, total, and place order.
  */
 const VarietyPurchase = () => {
   const { id } = useParams()
+  const [variety, setVariety] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [varietyType, setVarietyType] = useState(VARIETY_TYPES.STICK)
   const [quantity, setQuantity] = useState(1)
-  const [paymentMode, setPaymentMode] = useState(null) // 'full' | 'manual'
-  const [showPayConfirm, setShowPayConfirm] = useState(false)
+  const [showOrderConfirm, setShowOrderConfirm] = useState(false)
+  const [showCreateAccountModal, setShowCreateAccountModal] = useState(false)
 
-  const variety = varieties.find((v) => String(v.id) === id)
+  useEffect(() => {
+    let cancelled = false
+    getVariety(id)
+      .then((data) => {
+        if (!cancelled) setVariety(data)
+      })
+      .catch((err) => {
+        if (!cancelled) setError(err.message)
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+    return () => { cancelled = true }
+  }, [id])
+
+  if (loading) {
+    return (
+      <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-2">
+          <div className="h-5 w-24 rounded bg-slate-200 animate-pulse" aria-hidden />
+          <div className="h-9 w-64 rounded bg-slate-200 animate-pulse md:h-10" aria-hidden />
+        </div>
+
+        <div className="grid gap-10 md:grid-cols-5 md:gap-12">
+          <div className="md:col-span-2">
+            <div className="aspect-[16/10] overflow-hidden rounded-lg bg-slate-200 animate-pulse" aria-hidden />
+            <div className="mt-4 h-4 w-12 rounded bg-slate-200 animate-pulse" aria-hidden />
+            <div className="mt-1.5 h-10 w-full rounded border border-slate-200 bg-slate-100" aria-hidden />
+            <div className="mt-4 h-4 w-full rounded bg-slate-200 animate-pulse" aria-hidden />
+            <div className="mt-2 h-4 w-3/4 rounded bg-slate-200 animate-pulse" aria-hidden />
+            <div className="mt-2 h-4 w-2/3 rounded bg-slate-200 animate-pulse" aria-hidden />
+            <div className="mt-3 flex flex-wrap gap-2">
+              {[1, 2, 3, 4].map((j) => (
+                <span
+                  key={j}
+                  className="inline-block h-6 w-20 rounded border border-slate-200 bg-slate-100"
+                  aria-hidden
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-8 md:col-span-3">
+            <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+              <div className="h-6 w-40 rounded bg-slate-200 animate-pulse" aria-hidden />
+              <div className="mt-1 h-4 w-full rounded bg-slate-200 animate-pulse" aria-hidden />
+              <div className="mt-4 flex flex-wrap gap-2">
+                {[1, 2, 3, 4, 5].map((k) => (
+                  <span key={k} className="h-9 w-20 rounded bg-slate-100" aria-hidden />
+                ))}
+              </div>
+              <div className="mt-4 h-10 w-24 rounded border border-slate-200 bg-slate-100" aria-hidden />
+            </section>
+
+            <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+              <div className="h-6 w-28 rounded bg-slate-200 animate-pulse" aria-hidden />
+              <div className="mt-4 h-5 w-full rounded bg-slate-200 animate-pulse" aria-hidden />
+              <div className="mt-6 h-10 w-32 rounded bg-slate-100" aria-hidden />
+            </section>
+          </div>
+        </div>
+      </div>
+    )
+  }
+  if (error) {
+    return (
+      <div className="flex flex-col gap-12">
+        <p className="text-red-600">Failed to load variety: {error}</p>
+        <Link to="/varieties" className="text-sm font-medium text-green-600 hover:text-green-700">
+          Back to Varieties
+        </Link>
+      </div>
+    )
+  }
   if (!variety) return <Navigate to="/varieties" replace />
 
   const isStick = varietyType === VARIETY_TYPES.STICK
@@ -22,36 +98,27 @@ const VarietyPurchase = () => {
   const pricePerKg = variety.pricePerKg ?? 4
   const unitPrice = isStick ? pricePerAcre : pricePerKg
   const totalCedis = quantity * unitPrice
-  const manualCedis = Math.round(totalCedis * MANUAL_PAYMENT_PERCENT)
 
   const handleTypeChange = (type) => {
     setVarietyType(type)
     setQuantity(type === VARIETY_TYPES.STICK ? 1 : 10)
-    setShowPayConfirm(false)
-    setPaymentMode(null)
+    setShowOrderConfirm(false)
   }
   const handleStickClick = (acres) => setQuantity(acres)
-  const handlePay = (mode) => {
-    setPaymentMode(mode)
-    setShowPayConfirm(true)
+  const handlePlaceOrder = () => {
+    createOrder({
+      varietyId: variety._id,
+      varietyName: variety.name,
+      type: varietyType,
+      quantity,
+      totalCedis,
+    }).catch(() => { /* order still visible via email */ })
+    setShowOrderConfirm(true)
   }
 
-  const amountToPay = paymentMode === 'manual' ? manualCedis : totalCedis
   const typeLabel = isStick ? 'Stick' : 'Food'
   const quantityLabel = isStick ? `${quantity} acre(s)` : `${quantity} kg`
   const unitLabel = isStick ? 'acre(s)' : 'kg'
-  const paySubject = encodeURIComponent(
-    `Variety purchase: ${variety.name} (${typeLabel}) – ${paymentMode === 'manual' ? 'Manual (40%)' : 'Full'} – ${quantityLabel}`
-  )
-  const payBody = encodeURIComponent(
-    `I would like to pay ${paymentMode === 'manual' ? '40% (manual)' : 'full amount'} for ${variety.name} (${typeLabel}).\n\n` +
-      `Variety type: ${typeLabel}\n` +
-      `Quantity: ${quantityLabel}\n` +
-      `Total: GHS ${totalCedis}\n` +
-      `${paymentMode === 'manual' ? `Manual payment (40%): GHS ${manualCedis}\n` : ''}\n` +
-      `Submitted from Cassava Digital Varieties purchase page.`
-  )
-  const mailtoPay = `mailto:info@cassavadigital.com?subject=${paySubject}&body=${payBody}`
 
   return (
     <div className="flex flex-col gap-12">
@@ -158,7 +225,7 @@ const VarietyPurchase = () => {
           </section>
 
           <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-900">Total &amp; Pay</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Total &amp; Order</h2>
             <div className="mt-4 flex flex-col gap-3">
               <div className="flex justify-between text-slate-700">
                 <span>
@@ -168,58 +235,55 @@ const VarietyPurchase = () => {
               </div>
             </div>
 
-            {!showPayConfirm ? (
-              <div className="mt-6 flex flex-col gap-3">
-                <p className="text-sm font-medium text-slate-700">Choose how to pay:</p>
-                <div className="flex flex-wrap gap-3">
-                  <button
-                    type="button"
-                    onClick={() => handlePay('full')}
-                    className="rounded-lg bg-green-500 px-5 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                  >
-                    Pay full — GHS {totalCedis}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handlePay('manual')}
-                    className="rounded-lg border-2 border-green-500 bg-white px-5 py-2.5 text-sm font-semibold text-green-700 transition hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                  >
-                    Manual payment (40%) — GHS {manualCedis}
-                  </button>
-                </div>
-                <p className="text-xs text-slate-500">
-                  Manual payment: pay 40% of the total now; we&apos;ll confirm the rest with you.
-                </p>
+            {!showOrderConfirm ? (
+              <div className="mt-6">
+                <button
+                  type="button"
+                  onClick={handlePlaceOrder}
+                  className="rounded-lg bg-green-500 px-5 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                >
+                  Place an order
+                </button>
               </div>
             ) : (
               <div className="mt-6 rounded-lg bg-green-50 p-4">
                 <p className="text-sm font-medium text-green-800">
-                  {variety.name} ({typeLabel}) — {paymentMode === 'manual' ? 'Manual payment (40%)' : 'Full payment'}.
+                  {variety.name} ({typeLabel}) — {quantity} {unitLabel}
                 </p>
                 <p className="mt-1 text-sm text-green-700">
-                  Amount to pay: <strong>GHS {amountToPay}</strong>
+                  Total: <strong>GHS {totalCedis}</strong>
                 </p>
-                <a
-                  href={mailtoPay}
+                <p className="mt-3 text-sm text-slate-600">
+                  Create an account to complete your order and track your purchase.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setShowCreateAccountModal(true)}
                   className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg bg-green-500 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 >
-                  Pay — open email to complete
+                  Create an account
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </a>
+                </button>
                 <button
                   type="button"
-                  onClick={() => { setShowPayConfirm(false); setPaymentMode(null) }}
+                  onClick={() => setShowOrderConfirm(false)}
                   className="mt-3 ml-0 block text-sm font-medium text-green-700 underline hover:text-green-800"
                 >
-                  Change payment option
+                  Change order
                 </button>
               </div>
             )}
           </section>
         </div>
       </div>
+
+      {showCreateAccountModal && (
+        <CreateAccountModal
+          onClose={() => setShowCreateAccountModal(false)}
+        />
+      )}
     </div>
   )
 }

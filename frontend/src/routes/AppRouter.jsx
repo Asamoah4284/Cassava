@@ -1,6 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import ScrollToTop from '../components/ScrollToTop'
+import AdminGuard from '../components/admin/AdminGuard'
 import PublicLayout from '../layouts/PublicLayout'
+import AdminLayout from '../layouts/AdminLayout'
 import About from '../pages/public/About'
 import ConsultancyOverview from '../pages/public/ConsultancyOverview'
 import ContactSupport from '../pages/public/ContactSupport'
@@ -10,9 +12,13 @@ import MarketplacePreview from '../pages/public/MarketplacePreview'
 import ResearchHighlights from '../pages/public/ResearchHighlights'
 import Varieties from '../pages/public/Varieties'
 import VarietyPurchase from '../pages/public/VarietyPurchase'
+import Register from '../pages/public/Register'
+import AdminLogin from '../pages/admin/AdminLogin'
+import AdminVarieties from '../pages/admin/AdminVarieties'
+import AdminOrders from '../pages/admin/AdminOrders'
 
 /**
- * App routing configuration for public pages.
+ * App routing configuration for public and admin pages.
  */
 const AppRouter = () => {
   return (
@@ -29,6 +35,20 @@ const AppRouter = () => {
           <Route path="/marketplace" element={<MarketplacePreview />} />
           <Route path="/consultancy" element={<ConsultancyOverview />} />
           <Route path="/contact" element={<ContactSupport />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin"
+          element={
+            <AdminGuard>
+              <AdminLayout />
+            </AdminGuard>
+          }
+        >
+          <Route index element={<Navigate to="/admin/varieties" replace />} />
+          <Route path="varieties" element={<AdminVarieties />} />
+          <Route path="orders" element={<AdminOrders />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

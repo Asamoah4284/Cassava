@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { getVarieties } from '../../api/client'
 
 /**
  * Cassava varieties commonly grown in Ghana and the wider region.
@@ -6,57 +8,92 @@ import { Link } from 'react-router-dom'
  */
 export const VARIETY_TYPES = { STICK: 'stick', FOOD: 'food' }
 
-export const varieties = [
-  {
-    id: 1,
-    name: 'TME 419',
-    tagline: 'High-yield, disease-resistant',
-    description:
-      'Widely adopted variety with high dry matter (about 25%), strong resistance to cassava mosaic disease, and yields often above 25 t/ha. Well suited for pounding and starch use.',
-    image: 'https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg',
-    traits: ['High yielding', 'CMD resistant', 'Good for fufu', 'High starch'],
-    pricePerAcre: 500,
-    pricePerKg: 4,
-  },
-  {
-    id: 2,
-    name: 'Afisiafi',
-    tagline: 'Early maturing, poundable',
-    description:
-      'Farmer-preferred variety that matures early and is easy to pound. Valued for food use and local processing across Ghana.',
-    image: 'https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg',
-    traits: ['Early maturity', 'Poundable', 'Food quality', 'Farmer preferred'],
-    pricePerAcre: 500,
-    pricePerKg: 4,
-  },
-  {
-    id: 3,
-    name: 'Bankye Hemaa',
-    tagline: 'Starch and gari',
-    description:
-      'Suited for gari and starch production. Good dry matter and processing quality for both household and small-scale industry.',
-    image: 'https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg',
-    traits: ['High starch', 'Gari quality', 'Processing', 'Dry matter'],
-    pricePerAcre: 500,
-    pricePerKg: 4,
-  },
-  {
-    id: 4,
-    name: 'Tek Bankye',
-    tagline: 'Drought tolerant, reliable',
-    description:
-      'Performs well under low rainfall and marginal soils. Valued for food security and as a reliable option in drier areas.',
-    image: 'https://i.pinimg.com/1200x/10/a2/9c/10a29c1102c3a8640056d4d98aa6a50e.jpg',
-    traits: ['Drought tolerant', 'Stable yield', 'Stress tolerant', 'Food security'],
-    pricePerAcre: 500,
-    pricePerKg: 4,
-  },
-]
-
 /**
- * Public page showcasing four cassava varieties with link to purchase variety list.
+ * Public page showcasing cassava varieties from the backend API with link to purchase variety list.
  */
 const Varieties = () => {
+  const [varieties, setVarieties] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    let cancelled = false
+    getVarieties()
+      .then((data) => {
+        if (!cancelled) setVarieties(data)
+      })
+      .catch((err) => {
+        if (!cancelled) setError(err.message)
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+    return () => { cancelled = true }
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-3">
+          <h2 className="text-3xl font-semibold text-black md:text-4xl">
+            Cassava Varieties
+          </h2>
+          <p className="max-w-2xl text-base text-slate-600">
+            Explore four widely used cassava varieties in Ghana—each with distinct
+            traits for yield, disease resistance, processing, and resilience.
+            Join a variety list to get updates and growing tips.
+          </p>
+        </div>
+
+        <div className="flex flex-col divide-y divide-slate-200">
+          {[1, 2, 3, 4].map((i) => (
+            <article
+              key={i}
+              className="flex flex-col gap-0 py-12 first:pt-0 last:pb-0 md:py-16"
+              aria-hidden
+            >
+              <div className="grid gap-8 md:grid-cols-2 md:gap-12 md:items-center">
+                <div
+                  className={`aspect-[16/10] overflow-hidden rounded bg-slate-200 animate-pulse md:aspect-[2/1] ${
+                    i % 2 === 0 ? 'md:order-1' : 'md:order-2'
+                  }`}
+                />
+                <div
+                  className={`flex flex-col justify-center md:py-4 ${
+                    i % 2 === 0 ? 'md:order-2' : 'md:order-1'
+                  }`}
+                >
+                  <div className="h-3 w-24 rounded bg-slate-200 animate-pulse" />
+                  <div className="mt-2 h-8 w-3/4 rounded bg-slate-200 animate-pulse md:h-9" />
+                  <div className="mt-4 h-4 w-full rounded bg-slate-200 animate-pulse" />
+                  <div className="mt-2 h-4 w-full rounded bg-slate-200 animate-pulse" />
+                  <div className="mt-2 h-4 w-2/3 rounded bg-slate-200 animate-pulse" />
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {[1, 2, 3, 4].map((j) => (
+                      <span
+                        key={j}
+                        className="inline-block h-6 w-20 rounded border border-slate-200 bg-slate-100"
+                      />
+                    ))}
+                  </div>
+                  <div className="mt-6 h-5 w-44 rounded bg-slate-200 animate-pulse" />
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col gap-16">
+        <p className="text-red-600">Failed to load varieties: {error}</p>
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col gap-16">
       <div className="flex flex-col gap-3">
@@ -75,7 +112,7 @@ const Varieties = () => {
           const isImageLeft = index % 2 === 0
           return (
             <article
-              key={variety.id}
+              key={variety._id}
               className="flex flex-col gap-0 py-12 first:pt-0 last:pb-0 md:py-16"
             >
               <div className="grid gap-8 md:grid-cols-2 md:gap-12 md:items-center">
@@ -116,7 +153,7 @@ const Varieties = () => {
                   </div>
 
                   <Link
-                    to={`/varieties/${variety.id}/purchase`}
+                    to={`/varieties/${variety._id}/purchase`}
                     className="mt-6 inline-flex w-fit items-center gap-2 border-b-2 border-green-500 pb-1 text-sm font-semibold text-slate-900 transition hover:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
                   >
                     Purchase this variety list
