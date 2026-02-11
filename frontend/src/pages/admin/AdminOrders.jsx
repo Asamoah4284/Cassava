@@ -57,13 +57,13 @@ const AdminOrders = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between gap-4">
-        <h1 className="text-2xl font-semibold text-slate-900">Orders</h1>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-xl font-semibold text-slate-900 sm:text-2xl">Orders</h1>
         <button
           type="button"
           onClick={() => load()}
           disabled={loading}
-          className="inline-flex items-center gap-2 rounded border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-60"
+          className="inline-flex w-full justify-center gap-2 rounded border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-60 sm:w-auto"
           aria-label="Refresh orders"
         >
           <svg
@@ -153,6 +153,9 @@ const AdminOrders = () => {
           <p className="p-6 text-center text-slate-500">No orders yet.</p>
         )}
       </div>
+      {orders.length === 0 && !loading && (
+        <p className="text-center text-slate-500 md:hidden">No orders yet.</p>
+      )}
     </div>
   )
 }

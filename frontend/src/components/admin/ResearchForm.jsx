@@ -99,8 +99,8 @@ const ResearchForm = ({ research, onSave, onCancel, title }) => {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto border border-slate-200 bg-white shadow-lg">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-2 sm:items-center sm:p-4">
+      <div className="max-h-[90vh] w-full max-w-3xl overflow-y-auto border border-slate-200 bg-white shadow-lg sm:rounded-lg">
         <div className="sticky top-0 border-b border-slate-200 bg-white px-6 py-4">
           <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
         </div>

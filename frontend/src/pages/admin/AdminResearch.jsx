@@ -72,12 +72,12 @@ const AdminResearch = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-slate-900">Research</h1>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-xl font-semibold text-slate-900 sm:text-2xl">Research</h1>
         <button
           type="button"
           onClick={() => setCreating(true)}
-          className="rounded-lg bg-green-500 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          className="w-full rounded-lg bg-green-500 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:w-auto"
         >
           Add research post
         </button>
@@ -89,7 +89,61 @@ const AdminResearch = () => {
         </div>
       )}
 
-      <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+      {/* Mobile: card layout */}
+      <div className="flex flex-col gap-3 md:hidden">
+        {posts.map((p) => (
+          <div
+            key={p._id}
+            className="rounded-lg border border-slate-200 bg-white p-4"
+          >
+            <div className="flex gap-3">
+              {p.image ? (
+                <img
+                  src={imageUrl(p.image)}
+                  alt={p.title}
+                  className="h-16 w-20 shrink-0 rounded border border-slate-200 object-cover"
+                />
+              ) : (
+                <div className="h-16 w-20 shrink-0 rounded border border-slate-200 bg-slate-50" />
+              )}
+              <div className="min-w-0 flex-1">
+                <p className="font-medium text-slate-900">{p.title}</p>
+                {p.author && <p className="text-sm text-slate-600">{p.author}</p>}
+                <p className="mt-1 line-clamp-2 text-sm text-slate-600">{p.summary}</p>
+                <div className="mt-2 flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setEditing(p)}
+                    className="text-sm font-medium text-green-600 hover:text-green-700"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => openDeleteModal(p)}
+                    className="text-sm font-medium text-red-600 hover:text-red-700"
+                  >
+                    Delete
+                  </button>
+                  {p.document && (
+                    <a
+                      href={p.document.startsWith('http') ? p.document : `${API_BASE}${p.document.startsWith('/') ? '' : '/'}${p.document}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-green-600 hover:text-green-700"
+                    >
+                      View doc
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: table */}
+      <div className="hidden overflow-hidden rounded-lg border border-slate-200 bg-white md:block">
         <table className="min-w-full table-fixed divide-y divide-slate-200">
           <thead className="bg-slate-50">
             <tr>
@@ -180,6 +234,9 @@ const AdminResearch = () => {
           <p className="p-6 text-center text-slate-500">No research posts yet. Add one above.</p>
         )}
       </div>
+      {posts.length === 0 && !loading && (
+        <p className="text-center text-slate-500 md:hidden">No research posts yet. Add one above.</p>
+      )}
 
       {creating && (
         <ResearchForm

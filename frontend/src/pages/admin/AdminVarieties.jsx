@@ -64,12 +64,12 @@ const AdminVarieties = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-slate-900">Varieties</h1>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-xl font-semibold text-slate-900 sm:text-2xl">Varieties</h1>
         <button
           type="button"
           onClick={() => setCreating(true)}
-          className="rounded-lg bg-green-500 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          className="w-full rounded-lg bg-green-500 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:w-auto"
         >
           Add variety
         </button>
@@ -81,7 +81,46 @@ const AdminVarieties = () => {
         </div>
       )}
 
-      <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+      {/* Mobile: card layout */}
+      <div className="flex flex-col gap-3 md:hidden">
+        {varieties.map((v) => (
+          <div
+            key={v._id}
+            className="rounded-lg border border-slate-200 bg-white p-4"
+          >
+            <div className="flex gap-3">
+              <img
+                src={v.image}
+                alt={v.name}
+                className="h-16 w-20 shrink-0 rounded border border-slate-200 object-cover"
+              />
+              <div className="min-w-0 flex-1">
+                <p className="font-medium text-slate-900">{v.name}</p>
+                <p className="truncate text-sm text-slate-600">{v.tagline}</p>
+                <div className="mt-2 flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setEditing(v)}
+                    className="text-sm font-medium text-green-600 hover:text-green-700"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => openDeleteModal(v)}
+                    className="text-sm font-medium text-red-600 hover:text-red-700"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop: table */}
+      <div className="hidden overflow-hidden rounded-lg border border-slate-200 bg-white md:block">
         <table className="min-w-full divide-y divide-slate-200">
           <thead className="bg-slate-50">
             <tr>
@@ -139,6 +178,9 @@ const AdminVarieties = () => {
           <p className="p-6 text-center text-slate-500">No varieties yet. Add one above.</p>
         )}
       </div>
+      {varieties.length === 0 && !loading && (
+        <p className="text-center text-slate-500 md:hidden">No varieties yet. Add one above.</p>
+      )}
 
       {creating && (
         <VarietyForm

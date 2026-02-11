@@ -24,8 +24,8 @@ const DetailModal = ({ consultation, onClose }) => {
   if (!consultation) return null
   const c = consultation
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="w-full max-w-md rounded-lg border border-slate-200 bg-white p-6 shadow-lg">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-2 sm:items-center sm:p-4" onClick={(e) => e.target === e.currentTarget && onClose()}>
+      <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-lg border border-slate-200 bg-white p-6 shadow-lg">
         <h3 className="text-lg font-semibold text-slate-900">Consultation request</h3>
         <p className="mt-1 text-sm text-slate-500">{formatDate(c.createdAt)}</p>
         <dl className="mt-4 space-y-3 text-sm">
@@ -109,13 +109,13 @@ const AdminConsultations = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between gap-4">
-        <h1 className="text-2xl font-semibold text-slate-900">Consultations</h1>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-xl font-semibold text-slate-900 sm:text-2xl">Consultations</h1>
         <button
           type="button"
           onClick={() => load()}
           disabled={loading}
-          className="inline-flex items-center gap-2 rounded border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-60"
+          className="inline-flex w-full justify-center gap-2 rounded border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-60 sm:w-auto"
           aria-label="Refresh consultations"
         >
           <svg
@@ -239,6 +239,9 @@ const AdminConsultations = () => {
           <p className="p-6 text-center text-slate-500">No consultation requests yet.</p>
         )}
       </div>
+      {consultations.length === 0 && !loading && (
+        <p className="text-center text-slate-500 md:hidden">No consultation requests yet.</p>
+      )}
       {viewing && (
         <DetailModal consultation={viewing} onClose={() => setViewing(null)} />
       )}

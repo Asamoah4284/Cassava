@@ -20,12 +20,12 @@ const DeleteConfirmModal = ({ title, message, onConfirm, onCancel, confirming = 
           {title}
         </h2>
         <p className="mt-2 text-sm text-slate-600">{message}</p>
-        <div className="mt-6 flex justify-end gap-3">
+        <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:gap-3">
           <button
             type="button"
             onClick={onCancel}
             disabled={confirming}
-            className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-60"
+            className="rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-60 sm:py-2"
           >
             Cancel
           </button>
@@ -33,7 +33,7 @@ const DeleteConfirmModal = ({ title, message, onConfirm, onCancel, confirming = 
             type="button"
             onClick={onConfirm}
             disabled={confirming}
-            className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-60"
+            className="rounded-lg bg-red-600 px-4 py-3 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-60 sm:py-2"
           >
             {confirming ? 'Deleting…' : 'Delete'}
           </button>
