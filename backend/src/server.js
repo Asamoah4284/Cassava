@@ -17,9 +17,23 @@ await connectDB()
 
 const app = express()
 const port = process.env.PORT || 3001
-const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173'
 
-app.use(cors({ origin: corsOrigin }))
+// CORS: allow one or more origins (comma-separated in production)
+const corsOriginRaw = process.env.CORS_ORIGIN || 'http://localhost:5173'
+const corsOrigins = corsOriginRaw.split(',').map((o) => o.trim()).filter(Boolean)
+const corsOptions = {
+  origin: corsOrigins.length <= 1
+    ? (corsOrigins[0] || 'http://localhost:5173')
+    : (origin, cb) => {
+        if (!origin || corsOrigins.includes(origin)) {
+          cb(null, true)
+        } else {
+          cb(null, false)
+        }
+      },
+  optionsSuccessStatus: 200,
+}
+app.use(cors(corsOptions))
 app.use(express.json())
 
 const uploadsDir = path.join(process.cwd(), 'uploads')
